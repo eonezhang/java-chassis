@@ -16,24 +16,10 @@
 
 package io.servicecomb.core.definition.schema;
 
-import java.util.Map;
-
-import io.servicecomb.core.provider.consumer.ConsumerOperationMeta;
 import io.servicecomb.serviceregistry.api.registry.Microservice;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- *
- * @version  [版本号, 2017年4月7日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class ConsumerSchemaContext extends SchemaContext {
     protected Microservice microservice;
-
-    protected Map<String, ConsumerOperationMeta> consumerOperationMap;
 
     public Microservice getMicroservice() {
         return microservice;
@@ -41,13 +27,5 @@ public class ConsumerSchemaContext extends SchemaContext {
 
     public void setMicroservice(Microservice microservice) {
         this.microservice = microservice;
-    }
-
-    public Map<String, ConsumerOperationMeta> getConsumerOperationMap() {
-        return consumerOperationMap;
-    }
-
-    public void setConsumerOperationMap(Map<String, ConsumerOperationMeta> consumerOperationMap) {
-        this.consumerOperationMap = consumerOperationMap;
     }
 }

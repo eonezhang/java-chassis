@@ -15,33 +15,13 @@
  */
 package io.servicecomb.foundation.common.entities;
 
-/**
- * https请求的参数类
- * <功能详细描述>
- *  oW
- * @version  [版本号, 2016年11月4日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class HttpsConfigInfoBean {
-    /**
-     * keyStore路径
-     */
     private String keyStorePath = null;
 
-    /**
-     * keyStore密码
-     */
     private String keyStorePasswd = null;
 
-    /**
-     * trustStore路径
-     */
     private String trustStorePath = null;
 
-    /**
-     * trustStore密码
-     */
     private String trustStorePasswd = null;
 
     public String getKeyStorePath() {

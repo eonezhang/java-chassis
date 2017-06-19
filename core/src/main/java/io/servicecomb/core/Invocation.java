@@ -23,18 +23,11 @@ import java.util.concurrent.Executor;
 
 import io.servicecomb.core.definition.OperationMeta;
 import io.servicecomb.core.definition.SchemaMeta;
-import io.servicecomb.core.invocation.InvocationType;
 import io.servicecomb.core.provider.consumer.ReferenceConfig;
+import io.servicecomb.swagger.invocation.AsyncResponse;
+import io.servicecomb.swagger.invocation.InvocationType;
 import io.servicecomb.swagger.invocation.SwaggerInvocation;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月30日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class Invocation extends SwaggerInvocation {
     private ReferenceConfig referenceConfig;
 
@@ -60,18 +53,12 @@ public class Invocation extends SwaggerInvocation {
     // 同步模式：避免应答在网络线程中处理解码等等业务级逻辑
     private Executor responseExecutor;
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public Invocation(ReferenceConfig referenceConfig, OperationMeta operationMeta, Object[] swaggerArguments) {
         this.invocationType = InvocationType.CONSUMER;
         this.referenceConfig = referenceConfig;
         init(operationMeta, swaggerArguments);
     }
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public Invocation(Endpoint endpoint, OperationMeta operationMeta, Object[] swaggerArguments) {
         this.invocationType = InvocationType.PRODUCER;
         this.endpoint = endpoint;
@@ -86,99 +73,51 @@ public class Invocation extends SwaggerInvocation {
         handlerIndex = 0;
     }
 
-    /**
-     * 获取transport的值
-     * @return 返回 transport
-     */
     public Transport getTransport() {
         return endpoint.getTransport();
     }
 
-    /**
-     * 根据invocationType得到对应的handler链
-     * @return
-     */
     public List<Handler> getHandlerChain() {
         return (InvocationType.CONSUMER.equals(invocationType)) ? schemaMeta.getConsumerHandlerChain()
                 : schemaMeta.getProviderHandlerChain();
     }
 
-    /**
-     * 获取responseExecutor的值
-     * @return 返回 responseExecutor
-     */
     public Executor getResponseExecutor() {
         return responseExecutor;
     }
 
-    /**
-     * 对responseExecutor进行赋值
-     * @param responseExecutor responseExecutor的新值
-     */
     public void setResponseExecutor(Executor responseExecutor) {
         this.responseExecutor = responseExecutor;
     }
 
-    /**
-     * 获取schemaMeta的值
-     * @return 返回 schemaMeta
-     */
     public SchemaMeta getSchemaMeta() {
         return schemaMeta;
     }
 
-    /**
-     * 获取operationMeta的值
-     * @return 返回 operationMeta
-     */
     public OperationMeta getOperationMeta() {
         return operationMeta;
     }
 
-    /**
-     * 获取args的值
-     * @return 返回 args
-     */
     public Object[] getArgs() {
         return swaggerArguments;
     }
 
-    /**
-     * 获取endpoint的值
-     * @return 返回 endpoint
-     */
     public Endpoint getEndpoint() {
         return endpoint;
     }
 
-    /**
-     * 对endpoint进行赋值
-     * @param endpoint endpoint的新值
-     */
     public void setEndpoint(Endpoint endpoint) {
         this.endpoint = endpoint;
     }
 
-    /**
-     * 获取handlerContext的值
-     * @return 返回 handlerContext
-     */
     public Map<String, Object> getHandlerContext() {
         return handlerContext;
     }
 
-    /**
-     * 获取handlerIndex的值
-     * @return 返回 handlerIndex
-     */
     public int getHandlerIndex() {
         return handlerIndex;
     }
 
-    /**
-     * 对handlerIndex进行赋值
-     * @param handlerIndex handlerIndex的新值
-     */
     public void setHandlerIndex(int handlerIndex) {
         this.handlerIndex = handlerIndex;
     }
@@ -214,10 +153,6 @@ public class Invocation extends SwaggerInvocation {
         return schemaMeta.getMicroserviceMeta().getAppId();
     }
 
-    /**
-     * 获取microserviceVersionRule的值
-     * @return 返回 microserviceVersionRule
-     */
     public String getMicroserviceVersionRule() {
         return referenceConfig.getMicroserviceVersionRule();
     }
@@ -226,4 +161,7 @@ public class Invocation extends SwaggerInvocation {
         return invocationType.name() + " " + getRealTransportName() + " "
                 + getOperationMeta().getMicroserviceQualifiedName();
     }
+    public String getMicroserviceQualifiedName() {
+        return operationMeta.getMicroserviceQualifiedName();
+    }    
 }

@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.ws.rs.core.HttpHeaders;
+
 import io.servicecomb.common.rest.codec.RestServerRequestInternal;
 import io.servicecomb.foundation.vertx.stream.BufferInputStream;
 
@@ -33,10 +35,6 @@ import io.vertx.ext.web.RoutingContext;
 
 /**
  * 将HttpServerRequest封装为RestHttpRequest接口的类型，统一多种rest transport
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class RestVertxHttpRequest implements RestServerRequestInternal {
     private RoutingContext context;
@@ -53,41 +51,30 @@ public class RestVertxHttpRequest implements RestServerRequestInternal {
         this.future = future;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getPath() {
         return request.path();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMethod() {
         return request.method().name();
     }
 
-    /**
-     * 对pathParamMap进行赋值
-     * @param pathParamMap pathParamMap的新值
-     */
+    @Override
+    public String getContentType() {
+        return request.getHeader(HttpHeaders.CONTENT_TYPE);
+    }
+
     public void setPathParamMap(Map<String, String> pathParamMap) {
         this.pathParamMap = pathParamMap;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void complete() {
         future.complete();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String[] getQueryParam(String key) {
         List<String> paramList = request.params().getAll(key);
@@ -98,17 +85,11 @@ public class RestVertxHttpRequest implements RestServerRequestInternal {
         return (String[]) paramList.toArray(new String[paramList.size()]);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getPathParam(String key) {
         return this.pathParamMap.get(key);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getHeaderParam(String key) {
         Iterator<Entry<String, String>> ite = request.headers().iterator();
@@ -121,17 +102,11 @@ public class RestVertxHttpRequest implements RestServerRequestInternal {
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object getFormParam(String key) {
         return context.request().getParam(key);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getCookieParam(String key) {
         Cookie cookie = context.getCookie(key);
@@ -142,17 +117,11 @@ public class RestVertxHttpRequest implements RestServerRequestInternal {
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public InputStream getBody() {
         return new BufferInputStream(context.getBody().getByteBuf());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Map<String, String[]> getQueryParams() {
         Map<String, String[]> queryMap = new HashMap<>();

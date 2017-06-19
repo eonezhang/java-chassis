@@ -23,14 +23,6 @@ import javax.ws.rs.core.HttpHeaders;
 
 import io.servicecomb.foundation.common.utils.HttpUtils;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月27日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class LocalRestServerRequest implements RestServerRequest {
     private Map<String, String> pathParams;
 
@@ -49,20 +41,19 @@ public class LocalRestServerRequest implements RestServerRequest {
         this.bodyObject = bodyObject;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getPath() {
         throw new Error("no need to impl");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMethod() {
         throw new Error("not support");
+    }
+
+    @Override
+    public String getContentType() {
+        return null;
     }
 
     @Override

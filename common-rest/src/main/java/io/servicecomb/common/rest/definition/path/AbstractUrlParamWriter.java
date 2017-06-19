@@ -18,19 +18,9 @@ package io.servicecomb.common.rest.definition.path;
 
 import io.servicecomb.common.rest.definition.RestParam;
 
-/**
- *
- * @version  [版本号, 2017年1月18日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public abstract class AbstractUrlParamWriter implements UrlParamWriter {
     protected RestParam param;
 
-    /**
-     * 对param进行赋值
-     * @param param param的新值
-     */
     public void setParam(RestParam param) {
         this.param = param;
     }

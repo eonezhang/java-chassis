@@ -37,11 +37,6 @@ import io.swagger.models.Swagger;
  * 由consumer或producer发起的契约注册
  * 在consumer场景中，如果本地没有契约，需要从服务中心下载契约
  * 在producer场景中，如果本地没有契约，需要根据实现类动态生成契约
- *
- *
- * @version  [版本号, 2017年4月5日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public abstract class AbstractSchemaFactory<CONTEXT extends SchemaContext> {
     @Inject
@@ -53,6 +48,10 @@ public abstract class AbstractSchemaFactory<CONTEXT extends SchemaContext> {
     @Inject
     protected CompositeSwaggerGeneratorContext compositeSwaggerGeneratorContext;
 
+    public void setMicroserviceMetaManager(MicroserviceMetaManager microserviceMetaManager) {
+        this.microserviceMetaManager = microserviceMetaManager;
+    }
+
     // 因为aop的存在，schemaInstance的class不一定等于schemaClass
     protected SchemaMeta getOrCreateSchema(CONTEXT context) {
         MicroserviceMeta microserviceMeta = context.getMicroserviceMeta();
@@ -62,12 +61,8 @@ public abstract class AbstractSchemaFactory<CONTEXT extends SchemaContext> {
         }
         context.setSchemaMeta(schemaMeta);
 
-        connectToProvider(context);
-
         return schemaMeta;
     }
-
-    protected abstract void connectToProvider(CONTEXT context);
 
     protected abstract SchemaMeta createSchema(CONTEXT context);
 

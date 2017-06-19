@@ -20,15 +20,8 @@ import java.util.concurrent.Executor;
 
 /**
  * reactive场景，就地执行即可
- *
- * @version  [版本号, 2016年12月20日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class ReactiveResponseExecutor implements Executor {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void execute(Runnable cmd) {
         cmd.run();

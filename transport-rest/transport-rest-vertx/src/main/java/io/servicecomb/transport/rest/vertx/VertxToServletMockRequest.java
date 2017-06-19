@@ -47,10 +47,6 @@ import io.vertx.core.http.HttpServerRequest;
 
 /**
  * 使用vertx http request模拟一个Servlet http request
- *
- * @version  [版本号, 2017年1月19日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class VertxToServletMockRequest implements HttpServletRequest {
 
@@ -90,9 +86,6 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getContentType() {
         return this.vertxRequest.getHeader("Content-Type");
@@ -103,9 +96,6 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getParameter(String name) {
         return this.vertxRequest.getParam(name);
@@ -116,18 +106,12 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String[] getParameterValues(String name) {
         List<String> paramList = this.vertxRequest.params().getAll(name);
         return (String[]) paramList.toArray(new String[paramList.size()]);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Map<String, String[]> getParameterMap() {
         Map<String, String[]> paramMap = new HashMap<>();
@@ -144,9 +128,6 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getScheme() {
         return this.vertxRequest.scheme();
@@ -172,9 +153,6 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getRemoteHost() {
         return this.vertxRequest.remoteAddress().host();
@@ -210,17 +188,11 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getRealPath(String path) {
         return this.vertxRequest.path();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getRemotePort() {
         return this.vertxRequest.remoteAddress().port();
@@ -231,17 +203,11 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getLocalAddr() {
         return this.vertxRequest.localAddress().host();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getLocalPort() {
         return this.vertxRequest.localAddress().port();
@@ -298,9 +264,6 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getHeader(String name) {
         return this.vertxRequest.getHeader(name);
@@ -316,9 +279,6 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getIntHeader(String name) {
         String header = this.getHeader(name);
@@ -331,17 +291,11 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         return result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMethod() {
         return this.vertxRequest.method().name();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getPathInfo() {
         return this.vertxRequest.path();
@@ -357,9 +311,6 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getQueryString() {
         return this.vertxRequest.query();
@@ -385,9 +336,6 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getRequestURI() {
         return this.vertxRequest.uri();
@@ -398,9 +346,6 @@ public class VertxToServletMockRequest implements HttpServletRequest {
         throw new Error("not supported method");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getServletPath() {
         return this.getPathInfo();

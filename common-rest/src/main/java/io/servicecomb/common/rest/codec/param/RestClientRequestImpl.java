@@ -31,14 +31,6 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpHeaders;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年1月23日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class RestClientRequestImpl implements RestClientRequest {
     protected HttpClientRequest request;
 
@@ -48,25 +40,15 @@ public class RestClientRequestImpl implements RestClientRequest {
 
     protected Buffer bodyBuffer;
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public RestClientRequestImpl(HttpClientRequest request) {
         this.request = request;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void write(Buffer bodyBuffer) {
         this.bodyBuffer = bodyBuffer;
     }
 
-    /**
-     * {@inheritDoc}
-     * @throws Exception
-     */
     @Override
     public void end() throws Exception {
         writeCookies();
@@ -81,11 +63,6 @@ public class RestClientRequestImpl implements RestClientRequest {
         request.end(bodyBuffer);
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @throws Exception
-     */
     private void genBodyBuffer() throws Exception {
         request.putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
 
@@ -127,9 +104,6 @@ public class RestClientRequestImpl implements RestClientRequest {
         request.putHeader(HttpHeaders.COOKIE, builder.toString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void addCookie(String name, String value) {
         if (cookieMap == null) {
@@ -139,9 +113,6 @@ public class RestClientRequestImpl implements RestClientRequest {
         cookieMap.put(name, value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void addForm(String name, Object value) {
         if (formMap == null) {
@@ -151,9 +122,6 @@ public class RestClientRequestImpl implements RestClientRequest {
         formMap.put(name, value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void putHeader(String name, String value) {
         request.putHeader(name, value);

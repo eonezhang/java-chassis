@@ -18,32 +18,28 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>io.servicecomb</groupId>
-		<artifactId>cse-demo</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
+		<groupId>io.servicecomb.demo</groupId>
+		<artifactId>demo-parent</artifactId>
+		<version>0.1.0-m3-SNAPSHOT</version>
 	</parent>
 	<artifactId>demo-schema</artifactId>
 
 	<dependencies>
 		<dependency>
 			<groupId>io.servicecomb</groupId>
-			<artifactId>cse-handler-bizkeeper</artifactId>
+			<artifactId>handler-bizkeeper</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.servicecomb</groupId>
-			<artifactId>cse-handler-loadbalance</artifactId>
+			<artifactId>handler-loadbalance</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.servicecomb</groupId>
-			<artifactId>cse-transport-highway</artifactId>
+			<artifactId>transport-highway</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.servicecomb</groupId>
-			<artifactId>cse-transport-grpc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.servicecomb</groupId>
-			<artifactId>cse-transport-rest-vertx</artifactId>
+			<artifactId>transport-rest-vertx</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -52,7 +48,7 @@
 		</dependency>
 		<dependency>
 			<groupId>io.servicecomb</groupId>
-			<artifactId>cse-handler-flowcontrol-qps</artifactId>
+			<artifactId>handler-flowcontrol-qps</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.servicecomb</groupId>
@@ -66,7 +62,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<excludes>
-						<exclude>config/log4j.demo.eclipse.properties</exclude>
+						<exclude>config/log4j.eclipse.properties</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

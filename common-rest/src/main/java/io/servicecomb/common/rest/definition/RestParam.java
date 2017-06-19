@@ -21,22 +21,12 @@ import java.util.Collection;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import io.servicecomb.common.rest.codec.param.BodyProcessorCreator;
 import io.servicecomb.common.rest.codec.param.ParamValueProcessor;
 import io.servicecomb.common.rest.codec.param.ParamValueProcessorCreator;
 import io.servicecomb.common.rest.codec.param.ParamValueProcessorCreatorManager;
-import io.servicecomb.swagger.generator.core.utils.ClassUtils;
 
 import io.swagger.models.parameters.Parameter;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class RestParam {
     private static final JavaType STRING_ARRAY_TYPE = TypeFactory.defaultInstance().constructArrayType(String.class);
 
@@ -62,10 +52,6 @@ public class RestParam {
         this.paramProcessor = paramProcessor;
     }
 
-    /**
-     * 获取paramName的值
-     * @return 返回 paramName
-     */
     public String getParamName() {
         return paramName;
     }
@@ -75,14 +61,7 @@ public class RestParam {
         ParamValueProcessorCreator creater =
             ParamValueProcessorCreatorManager.INSTANCE.ensureFindValue(paramType);
 
-        if (BodyProcessorCreator.class.isInstance(creater)) {
-            boolean rawJson = ClassUtils.isRawJsonType(parameter);
-            this.setParamProcessor(((BodyProcessorCreator) creater).create(rawJson, genericParamType));
-
-            return;
-        }
-
-        this.setParamProcessor(creater.create(paramName, genericParamType));
+        this.setParamProcessor(creater.create(parameter, genericParamType));
     }
 
     @SuppressWarnings("unchecked")

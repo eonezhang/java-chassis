@@ -16,26 +16,18 @@
 
 package io.servicecomb.core.provider.consumer;
 
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.Invocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.servicecomb.core.CseContext;
-import io.servicecomb.core.Response;
 import io.servicecomb.core.definition.SchemaMeta;
-import io.servicecomb.core.exception.ExceptionFactory;
-import io.servicecomb.core.exception.InvocationException;
 import io.servicecomb.core.invocation.InvocationFactory;
+import io.servicecomb.swagger.invocation.AsyncResponse;
+import io.servicecomb.swagger.invocation.Response;
+import io.servicecomb.swagger.invocation.exception.ExceptionFactory;
+import io.servicecomb.swagger.invocation.exception.InvocationException;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月19日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public final class InvokerUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(InvokerUtils.class);
 
@@ -67,13 +59,6 @@ public final class InvokerUtils {
         throw ExceptionFactory.convertConsumerException((Throwable) response.getResult());
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param invocation
-     * @return
-     * @throws Throwable
-     */
     public static Response innerSyncInvoke(Invocation invocation) {
         try {
             SyncResponseExecutor respExecutor = new SyncResponseExecutor();

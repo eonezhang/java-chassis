@@ -20,39 +20,20 @@ import org.springframework.beans.factory.InitializingBean;
 
 import com.netflix.config.DynamicPropertyFactory;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月5日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class MetricsConfig implements InitializingBean {
 
     private static final int DEFAULT_METRICS_CYCLE = 60000;
 
-    /**
-     * 获取msCycle的值
-     * @return 返回 msCycle
-     */
     public static int getMsCycle() {
         return DynamicPropertyFactory.getInstance()
                 .getIntProperty("cse.metrics.cycle.ms", DEFAULT_METRICS_CYCLE)
                 .get();
     }
 
-    /**
-     * 获取enable的值
-     * @return 返回 enable
-     */
     public static boolean isEnable() {
         return DynamicPropertyFactory.getInstance().getBooleanProperty("cse.metrics.enabled", true).get();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void afterPropertiesSet() throws Exception {
         if (!isEnable()) {

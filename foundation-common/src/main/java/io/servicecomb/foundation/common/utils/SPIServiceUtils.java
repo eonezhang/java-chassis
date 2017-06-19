@@ -40,8 +40,6 @@ public final class SPIServiceUtils {
 
     /**
      * get target service.if target services are array,only random access to a service.
-     * @param serviceType service type
-     * @return target service,if no service, it will return null.
      */
     public static <T> T getTargetService(Class<T> serviceType) {
         ServiceLoader<T> loader = ServiceLoader.load(serviceType);

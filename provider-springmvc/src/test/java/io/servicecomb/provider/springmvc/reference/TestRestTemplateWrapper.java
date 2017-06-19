@@ -16,10 +16,7 @@
 
 package io.servicecomb.provider.springmvc.reference;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,20 +29,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 
 import io.servicecomb.provider.common.MockUtil;
-
 import mockit.Mock;
 import mockit.MockUp;
 
 public class TestRestTemplateWrapper {
 
-    /**
-     * Test RestTemplateWrapper
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
-     * @throws MalformedURLException 
-     * @throws URISyntaxException 
-     * @throws IOException 
-     */
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
     public void testRestTemplateWrapper() {

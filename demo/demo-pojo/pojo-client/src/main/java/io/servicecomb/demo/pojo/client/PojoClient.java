@@ -27,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import io.servicecomb.core.CseContext;
-import io.servicecomb.core.exception.InvocationException;
 import io.servicecomb.core.provider.consumer.InvokerUtils;
 import io.servicecomb.demo.DemoConst;
 import io.servicecomb.demo.TestMgr;
@@ -37,19 +36,11 @@ import io.servicecomb.demo.server.User;
 import io.servicecomb.demo.smartcare.Application;
 import io.servicecomb.demo.smartcare.Group;
 import io.servicecomb.demo.smartcare.SmartCare;
-import io.servicecomb.provider.pojo.RpcReference;
 import io.servicecomb.foundation.common.utils.BeanUtils;
 import io.servicecomb.foundation.common.utils.Log4jUtils;
+import io.servicecomb.provider.pojo.RpcReference;
+import io.servicecomb.swagger.invocation.exception.InvocationException;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- *
- * @version [版本号, 2017年1月3日]
- * @see  [相关类/方法]
- * @since [产品/模块版本]
- */
 @Component
 public class PojoClient {
     private static Logger LOGGER = LoggerFactory.getLogger(PojoClient.class);
@@ -113,11 +104,7 @@ public class PojoClient {
             testSplitParam(test);
             testInputArray(test);
 
-            // 异常，当前只有grpc不支持
-            if (!transport.equals("grpc") && !transport.equals("")) {
-                testException(test);
-
-            }
+            testException(test);
 
             testSmartCare(smartcare);
 
@@ -144,11 +131,6 @@ public class PojoClient {
                 smartCare.delApplication("app0"));
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param test
-     */
     private static void testException(Test test) {
         try {
             test.testException(456);
@@ -169,10 +151,6 @@ public class PojoClient {
         }
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     */
     private static void testInputArray(Test test) {
         String result = test.addString(new String[] {"a", "b"});
         LOGGER.info("input array result:{}", result);
@@ -226,10 +204,6 @@ public class PojoClient {
         TestMgr.check("arr is '[a, b]'", test.testStringArray(new String[] {"a", "b"}));
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     */
     private static void testWrapParam(Test test) {
         User user = new User();
 

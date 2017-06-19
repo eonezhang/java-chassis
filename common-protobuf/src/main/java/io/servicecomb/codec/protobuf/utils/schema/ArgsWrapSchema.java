@@ -24,27 +24,13 @@ import io.protostuff.Input;
 import io.protostuff.Output;
 import io.protostuff.Schema;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月16日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class ArgsWrapSchema extends AbstractWrapSchema {
-    /**
-     * <构造函数>
-     * @param schema [参数说明]
-     */
+
     @SuppressWarnings("unchecked")
     public ArgsWrapSchema(Schema<?> schema) {
         this.schema = (Schema<Object>) schema;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object readFromEmpty() {
         MultiWrapper wrapper = (MultiWrapper) schema.newMessage();

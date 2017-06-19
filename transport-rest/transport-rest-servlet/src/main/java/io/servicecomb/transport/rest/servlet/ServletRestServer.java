@@ -29,26 +29,12 @@ import io.servicecomb.common.rest.RestConst;
 import io.servicecomb.common.rest.codec.RestServerRequestInternal;
 import io.servicecomb.common.rest.codec.produce.ProduceProcessor;
 import io.servicecomb.core.Invocation;
-import io.servicecomb.core.Response;
+import io.servicecomb.swagger.invocation.Response;
+import io.servicecomb.swagger.invocation.exception.InvocationException;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年1月9日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class ServletRestServer extends AbstractRestServer<HttpServletResponse> {
     protected RestAsyncListener restAsyncListener = new RestAsyncListener();
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param request
-     * @param response
-     * @throws Exception
-     */
     public void service(HttpServletRequest request, HttpServletResponse response) {
         // 异步场景
         final AsyncContext asyncCtx = request.startAsync();
@@ -59,9 +45,6 @@ public class ServletRestServer extends AbstractRestServer<HttpServletResponse> {
         handleRequest(restRequest, response);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @SuppressWarnings("deprecation")
     @Override
     protected void doSendResponse(HttpServletResponse httpServerResponse, ProduceProcessor produceProcessor,
@@ -79,16 +62,15 @@ public class ServletRestServer extends AbstractRestServer<HttpServletResponse> {
 
         // 直接写到stream中去，避免重复分配内存，这是chunk模式，不必设置contentLength
         // TODO:设置buffer大小，这很影响性能
-        if (response.getResult() != null) {
-            OutputStream output = httpServerResponse.getOutputStream();
-            produceProcessor.encodeResponse(output, response.getResult());
+        Object body = response.getResult();
+        if (response.isFailed()) {
+            body = ((InvocationException) body).getErrorData();
         }
+        OutputStream output = httpServerResponse.getOutputStream();
+        produceProcessor.encodeResponse(output, body);
         httpServerResponse.flushBuffer();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void setHttpRequestContext(Invocation invocation, RestServerRequestInternal restRequest) {
         invocation.getHandlerContext().put(RestConst.HTTP_REQUEST_CREATOR,

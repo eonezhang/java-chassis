@@ -23,10 +23,6 @@ import io.vertx.core.http.HttpServerRequest;
 
 /**
  * 使用vertx http request构造其他各种http request
- *
- * @version  [版本号, 2017年1月22日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class ProducerVertxHttpRequestArgMapper extends AbstractProducerContextArgMapper {
     private HttpServerRequest httpRequest;
@@ -36,9 +32,6 @@ public class ProducerVertxHttpRequestArgMapper extends AbstractProducerContextAr
         this.httpRequest = httpRequest;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object createContextArg(SwaggerInvocation invocation) {
         return new VertxToServletMockRequest(httpRequest);

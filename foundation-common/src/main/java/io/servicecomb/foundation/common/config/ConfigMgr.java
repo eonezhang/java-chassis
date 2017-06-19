@@ -30,18 +30,7 @@ import io.servicecomb.foundation.common.config.impl.IncConfigs;
 import io.servicecomb.foundation.common.config.impl.XmlLoader;
 import io.servicecomb.foundation.common.config.impl.IncConfigs.IncConfig;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月22日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class ConfigMgr {
-    /**
-     * ConfigMgr instance
-     */
     public static final ConfigMgr INSTANCE = new ConfigMgr();
 
     private Map<String, Object> configMap = new ConcurrentHashMap<>();
@@ -51,7 +40,6 @@ public class ConfigMgr {
     /**
      * 扫描所有的*.inc.config.xml
      * 根据配置初始化所有的loader
-     * @throws Exception Exception
      */
     public void init() throws Exception {
         List<Resource> resArr =
@@ -90,14 +78,6 @@ public class ConfigMgr {
         }
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param configId configId
-     * @param <T> T
-     * @return T
-     * @throws Exception Exception
-     */
     @SuppressWarnings("unchecked")
     public <T> T getConfig(String configId) throws Exception {
         T config = (T) configMap.get(configId);

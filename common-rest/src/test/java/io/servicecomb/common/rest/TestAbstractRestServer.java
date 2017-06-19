@@ -31,18 +31,10 @@ import io.servicecomb.common.rest.codec.RestServerRequestInternal;
 import io.servicecomb.common.rest.codec.produce.ProduceProcessor;
 import io.servicecomb.core.Const;
 import io.servicecomb.core.Invocation;
-import io.servicecomb.core.Response;
 import io.servicecomb.core.Transport;
 import io.servicecomb.foundation.common.utils.JsonUtils;
+import io.servicecomb.swagger.invocation.Response;
 
-/**
- * <一句话功能简述> <功能详细描述>
- * 
- *
- * @version [版本号, 2017年3月1日]
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
 public class TestAbstractRestServer {
     private Invocation invocation;
 

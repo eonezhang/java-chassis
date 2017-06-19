@@ -26,9 +26,6 @@ import com.netflix.loadbalancer.Server;
  * 服务器抽象，address只有transport识别， LB模块不识别
  * LB模块不提供服务器状态监测，这块功能是由注册中心进行处理的。
  *
- * @version  [版本号, 2016年12月29日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class CseServer extends Server {
     private final Endpoint endpoint;
@@ -49,17 +46,13 @@ public class CseServer extends Server {
     public CseServer(Transport transport, CacheEndpoint cacheEndpoint) {
         super(null);
 
-        endpoint = new Endpoint(transport, cacheEndpoint.getEndpoint());
+        endpoint = new Endpoint(transport, cacheEndpoint.getEndpoint(), cacheEndpoint.getInstance());
         instance = cacheEndpoint.getInstance();
 
         this.setAlive(true);
         this.setReadyToServe(true);
     }
 
-    /**
-     * 获取endpoint的值
-     * @return 返回 endpoint
-     */
     public Endpoint getEndpoint() {
         return endpoint;
     }

@@ -22,10 +22,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.ws.rs.core.Response.Status;
 
-import io.servicecomb.core.exception.CommonExceptionData;
-import io.servicecomb.core.exception.ExceptionFactory;
-
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder.ErrorDataDecoderException;
+import io.servicecomb.swagger.invocation.exception.CommonExceptionData;
+import io.servicecomb.swagger.invocation.exception.ExceptionFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.file.FileSystem;
@@ -44,11 +43,6 @@ import io.vertx.ext.web.impl.FileUploadImpl;
  * and modified.
  *
  * allowed to disable fileupload by setUploadsDirectory(null)
- *
- *
- * @version  [版本号, 2017年5月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class RestBodyHandler implements BodyHandler {
 

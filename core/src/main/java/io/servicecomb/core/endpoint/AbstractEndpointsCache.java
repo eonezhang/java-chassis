@@ -33,10 +33,6 @@ import io.servicecomb.serviceregistry.cache.InstanceCacheManager;
 /**
  * registry模块不理解core中的概念
  * 所以要将字符串的各种信息转义一下，方便运行时使用
- *
- * @version  [版本号, 2017年1月26日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public abstract class AbstractEndpointsCache<ENDPOINT> {
     static TransportManager transportManager;
@@ -52,11 +48,7 @@ public abstract class AbstractEndpointsCache<ENDPOINT> {
     }
 
     /**
-     * <构造函数>
-     * @param appId
-     * @param microserviceName
-     * @param microserviceVersionRule
-     * @param transportName 可能为""，表示走任意健康的地址即可
+     * transportName 可能为""，表示走任意健康的地址即可
      */
     public AbstractEndpointsCache(String appId, String microserviceName, String microserviceVersionRule,
             String transportName) {
@@ -81,12 +73,6 @@ public abstract class AbstractEndpointsCache<ENDPOINT> {
         return endpoints;
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param newCache
-     * @return
-     */
     protected List<ENDPOINT> createEndpints(InstanceCache newCache) {
         Map<String, List<CacheEndpoint>> transportMap = getOrCreateTransportMap(newCache);
 
@@ -126,12 +112,5 @@ public abstract class AbstractEndpointsCache<ENDPOINT> {
         return transportMap;
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param transport
-     * @param address
-     * @return
-     */
     protected abstract ENDPOINT createEndpoint(Transport transport, CacheEndpoint cacheEndpoint);
 }

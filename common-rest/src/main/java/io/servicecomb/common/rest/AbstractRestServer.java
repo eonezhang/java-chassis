@@ -35,23 +35,15 @@ import io.servicecomb.common.rest.locator.ServicePathManager;
 import io.servicecomb.core.Const;
 import io.servicecomb.core.CseContext;
 import io.servicecomb.core.Invocation;
-import io.servicecomb.core.Response;
 import io.servicecomb.core.Transport;
 import io.servicecomb.core.definition.MicroserviceMeta;
 import io.servicecomb.core.definition.OperationMeta;
-import io.servicecomb.core.exception.InvocationException;
 import io.servicecomb.core.invocation.InvocationFactory;
 import io.servicecomb.serviceregistry.RegistryUtils;
+import io.servicecomb.swagger.invocation.Response;
+import io.servicecomb.swagger.invocation.exception.InvocationException;
 import io.servicecomb.foundation.common.utils.JsonUtils;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年1月9日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public abstract class AbstractRestServer<HTTP_RESPONSE> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRestServer.class);
 
@@ -132,13 +124,7 @@ public abstract class AbstractRestServer<HTTP_RESPONSE> {
         return locator.getOperation();
     }
 
-    /**
-     * 找不到processor，则已经完成了应答，外界不必再处理
-     * @param httpResponse
-     * @param restOperation
-     * @param contentType
-     * @return
-     */
+    // 找不到processor，则已经完成了应答，外界不必再处理
     protected ProduceProcessor locateProduceProcessor(RestServerRequestInternal restRequest,
             HTTP_RESPONSE httpResponse,
             RestOperationMeta restOperation, String acceptType) {
@@ -159,14 +145,7 @@ public abstract class AbstractRestServer<HTTP_RESPONSE> {
         sendResponse(restRequest, httpResponse, ProduceProcessorManager.DEFAULT_PROCESSOR, response);
     }
 
-    /**
-     * 成功、失败的统一应答处理，这里不能再出异常了，再出了异常也没办法处理
-     * @param httpServerResponse
-     * @param produceProcessor
-     * @param statusCode
-     * @param reasonPhrase
-     * @param errorData
-     */
+    // 成功、失败的统一应答处理，这里不能再出异常了，再出了异常也没办法处理
     protected void sendResponse(RestServerRequestInternal restRequest, HTTP_RESPONSE httpServerResponse,
             ProduceProcessor produceProcessor, Response response) {
         try {
@@ -183,19 +162,10 @@ public abstract class AbstractRestServer<HTTP_RESPONSE> {
         }
     }
 
-    /**
-     * 成功、失败的统一应答处理
-     * @param httpServerResponse
-     * @param produceProcessor
-     * @param response
-     * @throws Exception
-     */
+    //  成功、失败的统一应答处理
     protected abstract void doSendResponse(HTTP_RESPONSE httpServerResponse, ProduceProcessor produceProcessor,
             Response response) throws Exception;
 
-    /**
-     * 将http request注入到invocation的handler context
-     * @param invocation
-     */
+    // 将http request注入到invocation的handler context
     protected abstract void setHttpRequestContext(Invocation invocation, RestServerRequestInternal restRequest);
 }

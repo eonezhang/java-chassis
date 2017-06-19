@@ -24,13 +24,8 @@ import io.servicecomb.common.rest.codec.RestClientRequest;
 import io.servicecomb.common.rest.codec.RestObjectMapper;
 import io.servicecomb.common.rest.codec.RestServerRequest;
 
-/**
- * 用于处理Jaxrs中的Cookie类型参数
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
+import io.swagger.models.parameters.Parameter;
+
 public class CookieProcessorCreator implements ParamValueProcessorCreator {
     public static final String PARAMTYPE = "cookie";
 
@@ -39,9 +34,6 @@ public class CookieProcessorCreator implements ParamValueProcessorCreator {
             super(paramPath, targetType);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Object getValue(RestServerRequest request) throws Exception {
             String param = request.getCookieParam(paramPath);
@@ -52,9 +44,6 @@ public class CookieProcessorCreator implements ParamValueProcessorCreator {
             return convertValue(param, targetType);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void setValue(RestClientRequest clientRequest, Object arg) throws Exception {
             clientRequest.addCookie(paramPath, RestObjectMapper.INSTANCE.convertToString(arg));
@@ -70,12 +59,9 @@ public class CookieProcessorCreator implements ParamValueProcessorCreator {
         ParamValueProcessorCreatorManager.INSTANCE.register(PARAMTYPE, this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public ParamValueProcessor create(String paramValue, Type genericParamType) {
+    public ParamValueProcessor create(Parameter parameter, Type genericParamType) {
         JavaType targetType = TypeFactory.defaultInstance().constructType(genericParamType);
-        return new CookieProcessor(paramValue, targetType);
+        return new CookieProcessor(parameter.getName(), targetType);
     }
 }

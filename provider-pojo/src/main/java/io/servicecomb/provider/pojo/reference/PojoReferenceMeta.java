@@ -17,8 +17,6 @@
 package io.servicecomb.provider.pojo.reference;
 
 import java.lang.reflect.Proxy;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -30,9 +28,9 @@ import io.servicecomb.core.CseContext;
 import io.servicecomb.core.definition.MicroserviceMeta;
 import io.servicecomb.core.definition.SchemaMeta;
 import io.servicecomb.core.provider.CseBeanPostProcessor.EmptyBeanPostProcessor;
-import io.servicecomb.core.provider.consumer.ConsumerOperationMeta;
 import io.servicecomb.core.provider.consumer.ReferenceConfig;
 import io.servicecomb.provider.pojo.Invoker;
+import io.servicecomb.swagger.engine.SwaggerConsumer;
 
 public class PojoReferenceMeta implements FactoryBean<Object>, InitializingBean, EmptyBeanPostProcessor {
     // 原始数据
@@ -50,7 +48,7 @@ public class PojoReferenceMeta implements FactoryBean<Object>, InitializingBean,
 
     private SchemaMeta schemaMeta;
 
-    private Map<String, ConsumerOperationMeta> consumerOperationMap = new HashMap<>();
+    private SwaggerConsumer swaggerConsumer;
 
     // 根据intf创建出来的动态代理
     // TODO:未实现本地优先(本地场景下，应该跳过handler机制)
@@ -78,9 +76,8 @@ public class PojoReferenceMeta implements FactoryBean<Object>, InitializingBean,
             consumerIntf = schemaMeta.getSwaggerIntf();
         }
 
-        CseContext.getInstance().getConsumerSchemaFactory().connectToConsumer(schemaMeta,
-                consumerIntf,
-                consumerOperationMap);
+        this.swaggerConsumer = CseContext.getInstance().getSwaggerEnvironment().createConsumer(consumerIntf,
+                schemaMeta.getSwaggerIntf());
     }
 
     public void createInvoker() {
@@ -88,7 +85,7 @@ public class PojoReferenceMeta implements FactoryBean<Object>, InitializingBean,
 
         invoker.init(getReferenceConfig(),
                 getSchemaMeta(),
-                getConsumerOperationMap());
+                swaggerConsumer);
         createProxy();
     }
 
@@ -98,34 +95,18 @@ public class PojoReferenceMeta implements FactoryBean<Object>, InitializingBean,
         }
     }
 
-    /**
-     * 获取consumerOperationMap的值
-     * @return 返回 consumerOperationMap
-     */
-    public Map<String, ConsumerOperationMeta> getConsumerOperationMap() {
-        return consumerOperationMap;
+    public SwaggerConsumer getSwaggerConsumer() {
+        return swaggerConsumer;
     }
 
-    /**
-     * 获取referenceConfig的值
-     * @return 返回 referenceConfig
-     */
     public ReferenceConfig getReferenceConfig() {
         return referenceConfig;
     }
 
-    /**
-     * 获取proxy的值
-     * @return 返回 proxy
-     */
     public Object getProxy() {
         return getObject();
     }
 
-    /**
-     * 对proxy进行赋值
-     * @param proxy proxy的新值
-     */
     public void setProxy(Object proxy) {
         this.proxy = proxy;
     }
@@ -133,7 +114,7 @@ public class PojoReferenceMeta implements FactoryBean<Object>, InitializingBean,
     @Override
     public Object getObject() {
         if (proxy == null) {
-            throw new Error("proxy is null");
+            throw new Error("proxy is null, maybe you need to set interface value of rpc-reference");
         }
         return proxy;
     }
@@ -152,41 +133,22 @@ public class PojoReferenceMeta implements FactoryBean<Object>, InitializingBean,
         return true;
     }
 
-    /**
-     * 对intf进行赋值
-     * @param intf intf的新值
-     */
     public void setConsumerIntf(Class<?> intf) {
         this.consumerIntf = intf;
     }
 
-    /**
-     * 获取schemaMeta的值
-     * @return 返回 schemaMeta
-     */
     public SchemaMeta getSchemaMeta() {
         return schemaMeta;
     }
 
-    /**
-     * 对microserviceName进行赋值
-     * @param microserviceName microserviceName的新值
-     */
     public void setMicroserviceName(String microserviceName) {
         this.microserviceName = microserviceName;
     }
 
-    /**
-     * 对schemaId进行赋值
-     * @param schemaId schemaId的新值
-     */
     public void setSchemaId(String schemaId) {
         this.schemaId = schemaId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void afterPropertiesSet() {
         if (consumerIntf != null) {

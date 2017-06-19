@@ -25,16 +25,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 
-import io.servicecomb.core.Response;
+import io.servicecomb.swagger.invocation.Response;
 import io.servicecomb.swagger.invocation.response.Headers;
 
 /**
  * cse应答在transport层已经完成了码流到对象的转换
  * 这里是适配springmvc的机制，让调用者能拿到已经转换好的对象
- *
- * @version  [版本号, 2017年1月14日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class CseClientHttpResponse implements ClientHttpResponse {
     // 让springmvc client以为应答有body
@@ -61,32 +57,19 @@ public class CseClientHttpResponse implements ClientHttpResponse {
 
     private HttpHeaders httpHeaders;
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public CseClientHttpResponse(Response response) {
         this.response = response;
     }
 
-    /**
-     * 获取result的值
-     * @return 返回 result
-     */
     public Object getResult() {
         return response.getResult();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public InputStream getBody() throws IOException {
         return BODY_INPUT_STREAM;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public HttpHeaders getHeaders() {
         if (httpHeaders == null) {
@@ -108,34 +91,22 @@ public class CseClientHttpResponse implements ClientHttpResponse {
         return httpHeaders;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public HttpStatus getStatusCode() throws IOException {
         // TODO:springmvc不允许自定义http错误码
         return HttpStatus.valueOf(response.getStatusCode());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getRawStatusCode() throws IOException {
         return response.getStatusCode();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getStatusText() throws IOException {
         return response.getReasonPhrase();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void close() {
     }

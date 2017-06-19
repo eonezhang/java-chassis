@@ -19,8 +19,6 @@ package io.servicecomb.demo.client.perf;
 import io.servicecomb.core.CseContext;
 import io.servicecomb.core.Invocation;
 import io.servicecomb.core.definition.SchemaMeta;
-import io.servicecomb.core.exception.CommonExceptionData;
-import io.servicecomb.core.exception.InvocationException;
 import io.servicecomb.core.invocation.InvocationFactory;
 import io.servicecomb.core.provider.consumer.InvokerUtils;
 import io.servicecomb.core.provider.consumer.ReferenceConfig;
@@ -28,18 +26,10 @@ import io.servicecomb.demo.pojo.client.PojoClient;
 import io.servicecomb.demo.server.Test;
 import io.servicecomb.demo.server.TestRequest;
 import io.servicecomb.demo.server.User;
-
+import io.servicecomb.swagger.invocation.exception.CommonExceptionData;
+import io.servicecomb.swagger.invocation.exception.InvocationException;
 import io.vertx.core.AbstractVerticle;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- * 
- *
- * @version  [版本号, 2017年2月16日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class ClientVerticle extends AbstractVerticle {
 
     Test test = PojoClient.test;
@@ -49,9 +39,6 @@ public class ClientVerticle extends AbstractVerticle {
 
     int idx = 0;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void start() throws Exception {
 

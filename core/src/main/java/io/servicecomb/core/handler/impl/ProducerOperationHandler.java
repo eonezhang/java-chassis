@@ -16,30 +16,19 @@
 
 package io.servicecomb.core.handler.impl;
 
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.Const;
 import io.servicecomb.core.Invocation;
 import io.servicecomb.core.exception.ExceptionUtils;
-import io.servicecomb.core.provider.producer.ProducerOperation;
+import io.servicecomb.swagger.engine.SwaggerProducerOperation;
+import io.servicecomb.swagger.invocation.AsyncResponse;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月1日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class ProducerOperationHandler extends AbstractHandler {
     public static final ProducerOperationHandler INSTANCE = new ProducerOperationHandler();
 
-    /**
-     * {@inheritDoc}
-     * @throws Exception
-     */
     @Override
     public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
-        ProducerOperation producerOperation = invocation.getOperationMeta().getExtData(Const.PRODUCER_OPERATION);
+        SwaggerProducerOperation producerOperation =
+            invocation.getOperationMeta().getExtData(Const.PRODUCER_OPERATION);
         if (producerOperation == null) {
             asyncResp.producerFail(
                     ExceptionUtils.producerOperationNotExist(invocation.getSchemaId(),

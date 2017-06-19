@@ -16,45 +16,29 @@
 
 package io.servicecomb.core;
 
+import io.servicecomb.swagger.invocation.AsyncResponse;
+
 // TODO:感觉要拆成显式的client、server才好些
 public interface Transport {
     String getName();
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @throws Exception
-     */
     boolean init() throws Exception;
 
     /**
      * endpoint的格式为 URI，比如rest://192.168.1.1:8080
-     * @param endpoint endpoint URI representation
-     * @return tranport specific address.
      */
     Object parseAddress(String endpoint);
 
     /**
      * 本tranport的监听地址
-     * @return
-     * @throws Exception
      */
     Endpoint getEndpoint() throws Exception;
 
     
     /**
      * 用于上报到服务中心，要求是其他节点可访问的地址
-     * @return
-     * @throws Exception
      */
     Endpoint getPublishEndpoint() throws Exception;
-    
-    /**
-    * <一句话功能简述>
-    * <功能详细描述>
-    * @param invocation
-    * @param asyncResp
-    * @throws Exception
-    */
+
     void send(Invocation invocation, AsyncResponse asyncResp) throws Exception;
 }

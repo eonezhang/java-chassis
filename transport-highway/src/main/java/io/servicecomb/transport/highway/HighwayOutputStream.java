@@ -16,28 +16,20 @@
 package io.servicecomb.transport.highway;
 
 import io.servicecomb.codec.protobuf.utils.WrapSchema;
-import io.servicecomb.transport.highway.message.RequestHeader;
-import io.servicecomb.transport.highway.message.ResponseHeader;
-import io.servicecomb.foundation.vertx.tcp.TcpOutputStream;
 
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtobufOutput;
+import io.protostuff.runtime.ProtobufFeature;
+import io.servicecomb.foundation.vertx.tcp.TcpOutputStream;
+import io.servicecomb.transport.highway.message.RequestHeader;
+import io.servicecomb.transport.highway.message.ResponseHeader;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年5月9日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class HighwayOutputStream extends TcpOutputStream {
-    public HighwayOutputStream() {
-        super();
-    }
+    private ProtobufFeature protobufFeature;
 
-    public HighwayOutputStream(long msgId) {
+    public HighwayOutputStream(long msgId, ProtobufFeature protobufFeature) {
         super(msgId);
+        this.protobufFeature = protobufFeature;
     }
 
     public void write(RequestHeader header, WrapSchema bodySchema, Object body) throws Exception {
@@ -55,14 +47,14 @@ public class HighwayOutputStream extends TcpOutputStream {
 
         // 写header
         if (headerSchema != null) {
-            headerSchema.writeObject(output, header);
+            headerSchema.writeObject(output, header, protobufFeature);
         }
         int headerSize = output.getSize();
 
         // 写body
         // void时bodySchema为null
         if (bodySchema != null) {
-            bodySchema.writeObject(output, body);
+            bodySchema.writeObject(output, body, protobufFeature);
         }
 
         writeLength(output.getSize(), headerSize);

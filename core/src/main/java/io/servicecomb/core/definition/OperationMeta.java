@@ -22,21 +22,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.executor.ExecutorManager;
+import io.servicecomb.swagger.invocation.AsyncResponse;
 import io.servicecomb.swagger.invocation.response.ResponseMeta;
 import io.servicecomb.swagger.invocation.response.ResponsesMeta;
 
 import io.swagger.models.Operation;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月30日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class OperationMeta {
     private SchemaMeta schemaMeta;
 
@@ -86,26 +78,14 @@ public class OperationMeta {
                 method.getGenericReturnType());
     }
 
-    /**
-    * 获取httpMethod的值
-    * @return 返回 httpMethod
-    */
     public String getHttpMethod() {
         return httpMethod;
     }
 
-    /**
-     * 对httpMethod进行赋值
-     * @param httpMethod httpMethod的新值
-     */
     public void setHttpMethod(String httpMethod) {
         this.httpMethod = httpMethod;
     }
 
-    /**
-    * 获取operationPath的值
-    * @return 返回 operationPath
-    */
     public String getOperationPath() {
         return operationPath;
     }
@@ -121,10 +101,6 @@ public class OperationMeta {
         sync = !AsyncResponse.class.isAssignableFrom(lastParam);
     }
 
-    /**
-     * 获取swaggerOperation的值
-     * @return 返回 swaggerOperation
-     */
     public Operation getSwaggerOperation() {
         return swaggerOperation;
     }
@@ -133,26 +109,14 @@ public class OperationMeta {
         return responsesMeta.findResponseMeta(statusCode);
     }
 
-    /**
-     * 获取schemaMeta的值
-     * @return 返回 schemaMeta
-     */
     public SchemaMeta getSchemaMeta() {
         return schemaMeta;
     }
 
-    /**
-     * 获取schemaQualifiedName的值
-     * @return 返回 schemaQualifiedName
-     */
     public String getSchemaQualifiedName() {
         return schemaQualifiedName;
     }
 
-    /**
-     * 获取microserviceQualifiedName的值
-     * @return 返回 microserviceQualifiedName
-     */
     public String getMicroserviceQualifiedName() {
         return microserviceQualifiedName;
     }
@@ -161,10 +125,6 @@ public class OperationMeta {
         return schemaMeta.getMicroserviceName();
     }
 
-    /**
-     * 获取method的值
-     * @return 返回 method
-     */
     public Method getMethod() {
         return method;
     }
@@ -187,28 +147,19 @@ public class OperationMeta {
         return (T) extData.get(key);
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @return
-     */
     public boolean isSync() {
         return sync;
     }
 
-    /**
-     * 获取executor的值
-     * @return 返回 executor
-     */
     public Executor getExecutor() {
         return executor;
     }
 
-    /**
-     * 对executor进行赋值
-     * @param executor executor的新值
-     */
     public void setExecutor(Executor executor) {
         this.executor = executor;
+    }
+
+    public int getParamSize() {
+        return swaggerOperation.getParameters().size();
     }
 }

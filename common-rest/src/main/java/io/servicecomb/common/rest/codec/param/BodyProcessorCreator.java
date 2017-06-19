@@ -19,28 +19,25 @@ package io.servicecomb.common.rest.codec.param;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 
-import io.servicecomb.common.rest.codec.RestClientRequest;
-import io.servicecomb.common.rest.codec.RestObjectMapper;
-import io.servicecomb.common.rest.codec.RestServerRequest;
+import javax.ws.rs.core.MediaType;
+
 import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import io.servicecomb.foundation.vertx.stream.BufferOutputStream;
 
+import io.servicecomb.common.rest.codec.RestClientRequest;
+import io.servicecomb.common.rest.codec.RestObjectMapper;
+import io.servicecomb.common.rest.codec.RestServerRequest;
+import io.servicecomb.foundation.vertx.stream.BufferOutputStream;
+import io.servicecomb.swagger.generator.core.utils.ClassUtils;
+import io.swagger.models.parameters.Parameter;
 import io.vertx.core.buffer.Buffer;
 
 public class BodyProcessorCreator implements ParamValueProcessorCreator {
 
     public static final String PARAMTYPE = "body";
 
-    /**
-     * Body Parameter Processor
-     *
-     * @version  [版本号, 2017年1月2日]
-     * @see  [相关类/方法]
-     * @since  [产品/模块版本]
-     */
     public static class BodyProcessor implements ParamValueProcessor {
         protected JavaType targetType;
 
@@ -48,9 +45,6 @@ public class BodyProcessorCreator implements ParamValueProcessorCreator {
             this.targetType = targetType;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Object getValue(RestServerRequest request) throws Exception {
             // 从payload中获取参数
@@ -61,15 +55,17 @@ public class BodyProcessorCreator implements ParamValueProcessorCreator {
 
             if (InputStream.class.isInstance(body)) {
                 InputStream inputStream = (InputStream) body;
+
+                String contentType = request.getContentType();
+                if (contentType != null && contentType.startsWith(MediaType.TEXT_PLAIN)) {
+                    return IOUtils.toString(inputStream);
+                }
                 return RestObjectMapper.INSTANCE.readValue(inputStream, targetType);
             }
 
             return RestObjectMapper.INSTANCE.convertValue(body, targetType);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void setValue(RestClientRequest clientRequest, Object arg) throws Exception {
             try (BufferOutputStream output = new BufferOutputStream()) {
@@ -78,39 +74,23 @@ public class BodyProcessorCreator implements ParamValueProcessorCreator {
             }
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public String getParameterPath() {
             return "";
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public String getProcessorType() {
             return PARAMTYPE;
         }
     }
 
-    /**
-     * 针对raw json string类型的Body Processor
-     *
-     * @version  [版本号, 2017年3月10日]
-     * @see  [相关类/方法]
-     * @since  [产品/模块版本]
-     */
     public static class RawJsonBodyProcessor extends BodyProcessor {
 
         public RawJsonBodyProcessor(JavaType targetType) {
             super(targetType);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Object getValue(RestServerRequest request) throws Exception {
             // 从payload中获取参数
@@ -127,9 +107,6 @@ public class BodyProcessorCreator implements ParamValueProcessorCreator {
             return RestObjectMapper.INSTANCE.convertValue(body, targetType);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void setValue(RestClientRequest clientRequest, Object arg) throws Exception {
             clientRequest.write(Buffer.buffer((String) arg));
@@ -141,21 +118,14 @@ public class BodyProcessorCreator implements ParamValueProcessorCreator {
         ParamValueProcessorCreatorManager.INSTANCE.register(PARAMTYPE, this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public ParamValueProcessor create(String paramValue, Type genericParamType) {
+    public ParamValueProcessor create(Parameter parameter, Type genericParamType) {
         JavaType targetType = TypeFactory.defaultInstance().constructType(genericParamType);
-        return new BodyProcessor(targetType);
-    }
-
-    public ParamValueProcessor create(boolean rawJson, Type genericParamType) {
-        JavaType targetType = TypeFactory.defaultInstance().constructType(genericParamType);
+        boolean rawJson = ClassUtils.isRawJsonType(parameter);
         if (genericParamType.getTypeName().equals(String.class.getTypeName()) && rawJson) {
             return new RawJsonBodyProcessor(targetType);
         }
+
         return new BodyProcessor(targetType);
     }
-
 }

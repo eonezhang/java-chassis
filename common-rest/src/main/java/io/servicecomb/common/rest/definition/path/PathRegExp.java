@@ -24,10 +24,6 @@ import java.util.regex.Pattern;
 
 /**
  * 处理path中的正则表达式
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class PathRegExp {
     // 不带正则表达式的group,使用这个作为正则表达式
@@ -134,20 +130,6 @@ public class PathRegExp {
                 + " of \"" + path + "\"");
     }
 
-    /** <一句话功能简述>
-     * <功能详细描述>
-     * @param path
-     * @param varName
-     * @param regExp
-     * @param state
-     * @param i
-     * @param c
-     * @return
-     * @throws Exception [参数说明]
-     * @return int [返回类型说明]
-     * @exception throws [违例类型] [违例说明]
-     * @see [类、类#方法、类#成员]
-     */
     private int processDefault(final String path, final StringBuilder varName,
             final StringBuilder regExp, int state, int i, final char c) throws Exception {
         if (state == NAME_READ_START) {
@@ -167,18 +149,6 @@ public class PathRegExp {
         return state;
     }
 
-    /** <一句话功能简述>
-     * <功能详细描述>
-     * @param path
-     * @param pathPattern
-     * @param varName
-     * @param regExp
-     * @param state
-     * @throws Exception [参数说明]
-     * @return void [返回类型说明]
-     * @exception throws [违例类型] [违例说明]
-     * @see [类、类#方法、类#成员]
-     */
     private void processBrace(final String path, final StringBuilder pathPattern,
             final StringBuilder varName, final StringBuilder regExp, int state) throws Exception {
         if (state == NAME_READ_START) {
@@ -198,17 +168,6 @@ public class PathRegExp {
         this.varNames.add(varName.toString());
     }
 
-    /** <一句话功能简述>
-     * <功能详细描述>
-     * @param path
-     * @param braceIndex
-     * @param state
-     * @return
-     * @throws Exception [参数说明]
-     * @return int [返回类型说明]
-     * @exception throws [违例类型] [违例说明]
-     * @see [类、类#方法、类#成员]
-     */
     private int processColon(final String path, final int braceIndex, int state) throws Exception {
         if (state == NAME_READ_START) {
             throw new Exception(
@@ -221,14 +180,6 @@ public class PathRegExp {
         return state;
     }
 
-    /** <一句话功能简述>
-     * <功能详细描述>
-     * @param state
-     * @return [参数说明]
-     * @return int [返回类型说明]
-     * @exception throws [违例类型] [违例说明]
-     * @see [类、类#方法、类#成员]
-     */
     private int processLineBreak(int state) {
         if (state == NAME_READ) {
             state = NAME_READ_READY;

@@ -16,29 +16,13 @@
 
 package io.servicecomb.foundation.common;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月22日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class CommonThread extends Thread {
     protected volatile boolean shutdown;
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public CommonThread() {
         super();
     }
 
-    /**
-     * <构造函数>
-     * @param name name
-     * @param stackSize stackSize
-     */
     public CommonThread(String name, long stackSize) {
         super(null, null, name, stackSize);
     }
@@ -51,10 +35,6 @@ public class CommonThread extends Thread {
         return !shutdown;
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     */
     public void shutdown() {
         shutdown = true;
         interrupt();

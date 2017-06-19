@@ -30,9 +30,6 @@ import io.vertx.core.parsetools.impl.RecordParserImpl;
  *
  */
 public class TcpParser implements Handler<Buffer> {
-    /**
-     * TCP_MAGIC
-     */
     public static final byte[] TCP_MAGIC;
 
     public static final int TCP_HEADER_LENGTH = 23;
@@ -44,11 +41,6 @@ public class TcpParser implements Handler<Buffer> {
         }
     }
 
-    /**
-     * ParseStatus
-     *
-     *
-     */
     enum ParseStatus {
         TCP_HEADER,
         TCP_PAYLOAD
@@ -67,10 +59,6 @@ public class TcpParser implements Handler<Buffer> {
 
     private int headerLen;
 
-    /**
-     * TcpParser
-     * @param output      output
-     */
     public TcpParser(TcpBufferHandler output) {
         this.outputHandler = output;
 

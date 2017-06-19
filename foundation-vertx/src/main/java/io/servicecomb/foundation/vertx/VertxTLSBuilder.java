@@ -30,13 +30,6 @@ import io.vertx.core.net.NetServerOptions;
 import io.vertx.core.net.PfxOptions;
 import io.vertx.core.net.TCPSSLOptions;
 
-/**
- * TLS配置模型应用于vertx
- *
- * @version [版本号, 2017年3月10日]
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
 public final class VertxTLSBuilder {
     private static final String STORE_PKCS12 = "PKCS12";
 
@@ -46,16 +39,6 @@ public final class VertxTLSBuilder {
 
     }
 
-    /**
-     * TLS配置模型应用于 NetServerOptions
-     * @param sslOption
-     *            SSLOption
-     * @param sslCustom
-     *            SSLCustom
-     * @param netServerOptions
-     *            NetServerOptions
-     * @return NetServerOptions
-     */
     public static NetServerOptions buildNetServerOptions(SSLOption sslOption, SSLCustom sslCustom,
             NetServerOptions netServerOptions) {
         buildTCPSSLOptions(sslOption, sslCustom, netServerOptions);
@@ -67,16 +50,6 @@ public final class VertxTLSBuilder {
         return netServerOptions;
     }
 
-    /**
-     * TLS配置模型应用于 HttpClientOptions
-     * @param sslOption
-     *            SSLOption
-     * @param sslCustom
-     *            SSLCustom
-     * @param httpClientOptions
-     *            HttpClientOptions
-     * @return HttpClientOptions
-     */
     public static HttpClientOptions buildHttpClientOptions(SSLOption sslOption, SSLCustom sslCustom,
             HttpClientOptions httpClientOptions) {
         buildClientOptionsBase(sslOption, sslCustom, httpClientOptions);

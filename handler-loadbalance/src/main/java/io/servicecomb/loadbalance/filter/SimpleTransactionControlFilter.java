@@ -21,25 +21,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.netflix.loadbalancer.Server;
+
 import io.servicecomb.loadbalance.Configuration;
 import io.servicecomb.loadbalance.CseServer;
-import com.netflix.loadbalancer.Server;
 
 /**
  * 简单的分流filter
  * 策略：选择properties包含filter的所有options的所有实例，即filter的options为所选实例的properties的一个子集
- *
- * @version  [版本号, 2017年3月28日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class SimpleTransactionControlFilter extends TransactionControlFilter {
 
     @Override
     public List<Server> getFilteredListOfServers(List<Server> servers) {
         List<Server> filteredServers = new ArrayList<>();
-        Map<String, String> filterOptions = Configuration.INSTANCE.getFlowsplitFilterOptions(getInvocation().
-                getMicroserviceName());
+        Map<String, String> filterOptions =
+            Configuration.INSTANCE.getFlowsplitFilterOptions(getInvocation().getMicroserviceName());
         for (Server server : servers) {
             if (allowVisit((CseServer) server, filterOptions)) {
                 filteredServers.add(server);

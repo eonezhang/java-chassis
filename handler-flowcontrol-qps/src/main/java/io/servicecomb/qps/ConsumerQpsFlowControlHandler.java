@@ -16,24 +16,21 @@
 
 package io.servicecomb.qps;
 
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.Invocation;
 import io.servicecomb.core.definition.OperationMeta;
-import io.servicecomb.core.exception.CommonExceptionData;
-import io.servicecomb.core.exception.InvocationException;
 import io.servicecomb.core.handler.impl.AbstractHandler;
+import io.servicecomb.swagger.invocation.AsyncResponse;
+import io.servicecomb.swagger.invocation.exception.CommonExceptionData;
+import io.servicecomb.swagger.invocation.exception.InvocationException;
 
 /**
  * consumer端针对调用目标的qps控制
  * 支持microservice、schema、operation三个级别的控制
  *
- * @versi*/
+ */
 public class ConsumerQpsFlowControlHandler extends AbstractHandler {
     private ConsumerQpsControllerManager qpsControllerMgr = new ConsumerQpsControllerManager();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
         if (!Config.INSTANCE.isConsumerEnabled()) {

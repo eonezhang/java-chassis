@@ -16,37 +16,23 @@
 
 package io.servicecomb.provider.rest.common;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import io.servicecomb.swagger.extend.parameter.HttpRequestParameter;
 import io.servicecomb.swagger.invocation.arguments.ArgumentMapper;
 import io.servicecomb.swagger.invocation.arguments.ContextArgumentMapperFactory;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- *
- * @version  [版本号, 2017年4月8日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 @Component
 @Qualifier("producer")
 public class ProducerHttpRequestArgMapperFactory implements ContextArgumentMapperFactory {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Class<?> getContextClass() {
-        return HttpRequestParameter.class;
+        return HttpServletRequest.class;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public ArgumentMapper create(int providerArgIdx) {
         return new ProducerHttpRequestArgMapper(providerArgIdx);

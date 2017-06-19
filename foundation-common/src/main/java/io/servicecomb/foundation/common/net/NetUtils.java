@@ -30,14 +30,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月22日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public final class NetUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NetUtils.class);
@@ -69,7 +61,6 @@ public final class NetUtils {
     /**
      * docker环境中，有时无法通过InetAddress.getLocalHost()获取 ，会报unknown host Exception， system error
      * 此时，通过遍历网卡接口的方式规避，出来的数据不一定对
-     * @throws SocketException
      */
     private static void doGetIpv4AddressFromNetworkInterface() throws SocketException {
         Enumeration<NetworkInterface> iterNetwork = NetworkInterface.getNetworkInterfaces();
@@ -108,10 +99,7 @@ public final class NetUtils {
     }
 
     /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param address ip:port格式
-     * @return InetSocketAddress
+     * address ip:port格式
      */
     public static IpPort parseIpPort(String address) {
         if (address == null) {
@@ -128,11 +116,6 @@ public final class NetUtils {
         return new IpPort(hostOrIp, port);
     }
 
-    /**
-     * 将URI转换为IpPort
-     * @param uriAddress
-     * @return IpPort
-     */
     public static IpPort parseIpPortFromURI(String uriAddress) {
         if (uriAddress == null) {
             return null;
@@ -149,9 +132,9 @@ public final class NetUtils {
 
     /**
      * 对于配置为0.0.0.0的地址，let it go
-     * @param schema schema, e.g. http
-     * @param address adddress, e.g 0.0.0.0:8080
-     * @return 实际监听的地址
+     * schema, e.g. http
+     * adddress, e.g 0.0.0.0:8080
+     * return 实际监听的地址
      */
     public static String getRealListenAddress(String schema, String address) {
         if (address == null) {

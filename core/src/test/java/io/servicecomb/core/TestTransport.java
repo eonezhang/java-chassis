@@ -25,7 +25,7 @@ import org.junit.Test;
 import io.servicecomb.core.endpoint.EndpointsCache;
 import io.servicecomb.serviceregistry.RegistryUtils;
 import io.servicecomb.serviceregistry.api.registry.Microservice;
-
+import io.servicecomb.swagger.invocation.AsyncResponse;
 import mockit.Mock;
 import mockit.MockUp;
 import mockit.Mocked;
@@ -85,10 +85,6 @@ public class TestTransport {
         Assert.assertEquals("rest://127.0.0.1:8080", oEndpoint.getEndpoint().toString());
     }
 
-    /**
-     * TestAbstractTransport
-     * @throws Exception 
-     */
     @Test
     public void testAbstractTransport(@Mocked Microservice microservice) throws Exception {
 

@@ -20,33 +20,18 @@ import java.util.List;
 
 import io.servicecomb.common.rest.definition.RestOperationMeta;
 import io.servicecomb.common.rest.definition.RestParam;
+import io.servicecomb.swagger.invocation.exception.ExceptionFactory;
+import io.servicecomb.swagger.invocation.exception.InvocationException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.servicecomb.core.exception.ExceptionFactory;
-import io.servicecomb.core.exception.InvocationException;
-
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public final class RestCodec {
     private static final Logger LOG = LoggerFactory.getLogger(RestCodec.class);
 
     private RestCodec() {
     }
 
-    /**
-     * 将标准参数序列化成RESTful数据
-     * @param args
-     * @param restOperation
-     * @return
-     * @throws Exception
-     */
     public static void argsToRest(Object[] args, RestOperationMeta restOperation,
             RestClientRequest clientRequest) throws Exception {
         int paramSize = restOperation.getParamList().size();
@@ -64,13 +49,6 @@ public final class RestCodec {
         }
     }
 
-    /**
-     * 将RESTful数据反序列化成标准pojo参数
-     * @param request
-     * @param restOperation
-     * @return
-     * @throws Exception
-     */
     public static Object[] restToArgs(RestServerRequest request,
             RestOperationMeta restOperation) throws InvocationException {
         List<RestParam> paramList = restOperation.getParamList();

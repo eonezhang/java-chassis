@@ -28,14 +28,6 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.EnumSet;
 import java.util.Set;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月22日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public final class FilePerm {
     private FilePerm() {
     }
@@ -105,7 +97,6 @@ public final class FilePerm {
 
     /**
      * 获取默认Posix权限:640
-     * @return        posix file perm
      */
     public static Set<PosixFilePermission> getDefaultPosixPerm() {
         return PosixFilePermissions.fromString("rw-r-----");
@@ -113,8 +104,6 @@ public final class FilePerm {
 
     /**
      * 获取Posix权限
-     * @param perm    perm
-     * @return        posix file perm
      */
     public static Set<PosixFilePermission> getPosixPerm(int perm) {
         StringBuilder permStr = new StringBuilder();
@@ -135,7 +124,6 @@ public final class FilePerm {
 
     /**
      * 获取默认acl权限
-     * @return        posix file perm
      */
     public static Set<AclEntryPermission> getDefaultAclPerm() {
 
@@ -150,8 +138,6 @@ public final class FilePerm {
 
     /**
      * owner是否可读
-     * @param perm    perm
-     * @return        true or false
      */
     public static boolean uCanRead(int perm) {
         return (FILE_PERM_UREAD & perm) > 0;
@@ -159,8 +145,6 @@ public final class FilePerm {
 
     /**
      * owner是否可写
-     * @param perm    perm
-     * @return        true or false
      */
     public static boolean uCanWrite(int perm) {
         return (FILE_PERM_UWRITE & perm) > 0;
@@ -168,8 +152,6 @@ public final class FilePerm {
 
     /**
      * owner是否可执行
-     * @param perm    perm
-     * @return        true or false
      */
     public static boolean uCanExec(int perm) {
         return (FILE_PERM_UEXEC & perm) > 0;
@@ -177,8 +159,6 @@ public final class FilePerm {
 
     /**
      * 同组是否可读
-     * @param perm    perm
-     * @return        true or false
      */
     public static boolean gCanRead(int perm) {
         return (FILE_PERM_GREAD & perm) > 0;
@@ -186,8 +166,6 @@ public final class FilePerm {
 
     /**
      * 同组是否可写
-     * @param perm    perm
-     * @return        true or false
      */
     public static boolean gCanWrite(int perm) {
         return (FILE_PERM_GWRITE & perm) > 0;
@@ -195,8 +173,6 @@ public final class FilePerm {
 
     /**
      * 同组是否可执行
-     * @param perm    perm
-     * @return        true or false
      */
     public static boolean gCanExec(int perm) {
         return (FILE_PERM_GEXEC & perm) > 0;
@@ -204,8 +180,6 @@ public final class FilePerm {
 
     /**
      * 其他是否可读
-     * @param perm    perm
-     * @return        true or false
      */
     public static boolean oCanRead(int perm) {
         return (FILE_PERM_GREAD & perm) > 0;
@@ -213,8 +187,6 @@ public final class FilePerm {
 
     /**
      * 其他是否可写
-     * @param perm    perm
-     * @return        true or false
      */
     public static boolean oCanWrite(int perm) {
         return (FILE_PERM_GWRITE & perm) > 0;
@@ -222,8 +194,6 @@ public final class FilePerm {
 
     /**
      * 其他是否可执行
-     * @param perm    perm
-     * @return        true or false
      */
     public static boolean oCanExec(int perm) {
         return (FILE_PERM_GEXEC & perm) > 0;
@@ -231,8 +201,6 @@ public final class FilePerm {
 
     /**
      * 设置文件权限。前提：必须支持PosixFileAttributeView.
-     * @param file file
-     * @param perm perm
      */
     public static void setFilePerm(File file, String perm) {
         if (filePermSupported()) {

@@ -32,25 +32,11 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 
-/**
- * 读取证书的一些公共方法。
- *
- */
 public final class KeyStoreUtil {
     private KeyStoreUtil() {
 
     }
 
-    /**
-     * 读取证书文件
-     * @param storename
-     *            证书文件
-     * @param storetype
-     *            证书文件类型
-     * @param storevalue
-     *            证书文件密码
-     * @return 证书文件
-     */
     public static KeyStore createKeyStore(String storename, String storetype,
             char[] storevalue) {
         InputStream is = null;
@@ -73,11 +59,6 @@ public final class KeyStoreUtil {
         }
     }
 
-    /**
-     * 读取吊销证书列表。
-     * @param crlfile 吊销证书名称
-     * @return 吊销列表
-     */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static CRL[] createCRL(String crlfile) {
         InputStream is = null;
@@ -104,14 +85,6 @@ public final class KeyStoreUtil {
         }
     }
 
-    /**
-     * 创建KeyManager
-     * @param keystore
-     *            证书对象
-     * @param keyvalue
-     *            证书私钥密码
-     * @return KeyManager
-     */
     public static KeyManager[] createKeyManagers(final KeyStore keystore,
             char[] keyvalue) {
         try {
@@ -125,12 +98,6 @@ public final class KeyStoreUtil {
         }
     }
 
-    /**
-     * 创建TrustManager
-     * @param keystore
-     *            证书对象
-     * @return TrustManager
-     */
     public static TrustManager[] createTrustManagers(final KeyStore keystore) {
         try {
             TrustManagerFactory tmfactory =

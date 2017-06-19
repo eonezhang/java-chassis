@@ -16,50 +16,64 @@
 
 package io.servicecomb.common.javassist;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年2月20日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
+import org.springframework.util.ClassUtils;
+
+import com.fasterxml.jackson.databind.JavaType;
+
 public class FieldConfig {
     private String name;
 
-    private Class<?> type;
+    // javassist的成员不支持int这样的类型，必须是Integer才行
+    private Class<?> rawType;
 
-    private String genericSignature;
+    private JavaType type;
 
-    /**
-     * 获取name的值
-     * @return 返回 name
-     */
+    private boolean genGetter;
+
+    private boolean genSetter;
+
     public String getName() {
         return name;
     }
 
-    /**
-     * 对name进行赋值
-     * @param name name的新值
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public Class<?> getType() {
+    public Class<?> getRawType() {
+        return rawType;
+    }
+
+    public JavaType getType() {
         return type;
     }
 
-    public void setType(Class<?> type) {
+    public void setType(JavaType type) {
+        this.rawType = ClassUtils.resolvePrimitiveIfNecessary(type.getRawClass());
         this.type = type;
     }
 
-    public String getGenericSignature() {
-        return genericSignature;
+    public boolean isGenGetter() {
+        return genGetter;
     }
 
-    public void setGenericSignature(String genericSignature) {
-        this.genericSignature = genericSignature;
+    public void setGenGetter(boolean genGetter) {
+        this.genGetter = genGetter;
+    }
+
+    public boolean isGenSetter() {
+        return genSetter;
+    }
+
+    public void setGenSetter(boolean genSetter) {
+        this.genSetter = genSetter;
+    }
+
+    public String getGenericSignature() {
+        if (type.hasGenericTypes()) {
+            return type.getGenericSignature();
+        }
+
+        return null;
     }
 }

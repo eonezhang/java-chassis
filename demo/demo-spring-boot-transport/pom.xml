@@ -19,9 +19,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>io.servicecomb</groupId>
-		<artifactId>cse-demo</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
+		<groupId>io.servicecomb.demo</groupId>
+		<artifactId>demo-parent</artifactId>
+		<version>0.1.0-m3-SNAPSHOT</version>
 	</parent>
 	<artifactId>demo-spring-boot-transport</artifactId>
 	<packaging>pom</packaging>
@@ -30,40 +30,20 @@
 		<module>demo-spring-boot-pojo-client</module>
 	</modules>
 
-	<properties>
-		<spring-boot.version>1.4.5.RELEASE</spring-boot.version>
-		<demo.output.dir>
-			../../../../cse-demo-bin
-		</demo.output.dir>
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.servicecomb</groupId>
-				<artifactId>cse-dependency</artifactId>
-				<version>${servicecomb.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>io.servicecomb</groupId>
-			<artifactId>cse-spring-boot-starter-transport</artifactId>
+			<artifactId>spring-boot-starter-transport</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.servicecomb</groupId>
-			<artifactId>cse-spring-boot-starter-configuration</artifactId>
+			<artifactId>spring-boot-starter-provider</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>io.servicecomb</groupId>
+					<artifactId>transport-rest-vertx</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

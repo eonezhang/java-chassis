@@ -21,49 +21,17 @@ import io.vertx.core.buffer.Buffer;
 /**
  * vertx的HttpClientRequest没有getHeader的能力
  * 在写cookie参数时，没办法多次添加cookie，所以只能进行接口包装
- *
- * @version  [版本号, 2017年1月23日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public interface RestClientRequest {
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param bodyBuffer
-     */
     void write(Buffer bodyBuffer);
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @throws Exception
-     */
     void end() throws Exception;
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param name
-     * @param value
-     */
     void addCookie(String name, String value);
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param name
-     * @param value
-     */
     void putHeader(String name, String value);
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param name
-     * @param value
-     */
     void addForm(String name, Object value);
 
 }

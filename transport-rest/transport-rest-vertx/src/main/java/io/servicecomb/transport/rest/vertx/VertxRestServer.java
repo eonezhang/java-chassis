@@ -27,9 +27,8 @@ import io.servicecomb.common.rest.RestConst;
 import io.servicecomb.common.rest.codec.RestServerRequestInternal;
 import io.servicecomb.common.rest.codec.produce.ProduceProcessor;
 import io.servicecomb.core.Invocation;
-import io.servicecomb.core.Response;
-import io.servicecomb.core.exception.InvocationException;
-
+import io.servicecomb.swagger.invocation.Response;
+import io.servicecomb.swagger.invocation.exception.InvocationException;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder.ErrorDataDecoderException;
 import io.vertx.core.Future;
 import io.vertx.core.buffer.Buffer;
@@ -38,13 +37,6 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.CookieHandler;
 
-/**
- * Rest Server on Vertx
- *
- * @version  [版本号, 2016年12月31日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class VertxRestServer extends AbstractRestServer<HttpServerResponse> {
     private static final Logger LOGGER = LoggerFactory.getLogger(VertxRestServer.class);
 
@@ -107,9 +99,6 @@ public class VertxRestServer extends AbstractRestServer<HttpServerResponse> {
         httpServerResponse.end(buffer);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void setHttpRequestContext(Invocation invocation, RestServerRequestInternal restRequest) {
 

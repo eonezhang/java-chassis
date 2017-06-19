@@ -20,26 +20,12 @@ import io.servicecomb.provider.pojo.InstanceFactory;
 import io.servicecomb.provider.pojo.PojoConst;
 import io.servicecomb.foundation.common.utils.BeanUtils;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月26日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class SpringInstanceFactory implements InstanceFactory {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getImplName() {
         return PojoConst.SPRING;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object create(String beanId) {
         Object instance = BeanUtils.getBean(beanId);

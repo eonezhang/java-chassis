@@ -26,30 +26,17 @@ import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.JavaType;
 
-/**
- * 用于处理text/plain类型的produce的processor
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class ProduceTextPlainProcessor extends AbstractProduceProcessor {
     @Override
     public String getName() {
         return MediaType.TEXT_PLAIN;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void encodeResponse(OutputStream output, Object result) throws Exception {
         output.write(String.valueOf(result).getBytes(StandardCharsets.UTF_8));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object decodeResponse(InputStream input, JavaType type) throws Exception {
         // plainText类型，肯定是返回string的，想不出有其他类型的场景

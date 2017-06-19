@@ -20,19 +20,12 @@ import io.servicecomb.common.rest.definition.RestParam;
 
 /**
  * 处理动态path
- *
- * @version  [版本号, 2017年1月18日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class PathVarParamWriter extends AbstractUrlParamWriter {
     public PathVarParamWriter(RestParam param) {
         this.param = param;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void write(StringBuilder builder, Object[] args) throws Exception {
         builder.append((Object) getParamValue(args));

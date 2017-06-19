@@ -35,31 +35,15 @@ import org.w3c.dom.Document;
 
 import io.servicecomb.foundation.common.utils.JsonUtils;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月22日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class PaaSResourceUtils extends org.springframework.util.ResourceUtils {
-    /**
-     * propertie suffix
-     */
     public static final String PROPERTIES_SUFFIX = ".properties";
 
-    /**
-     * xml suffix
-     */
     public static final String XML_SUFFIX = ".xml";
 
     private static ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
 
     /**
      * 失败，则返回空数组
-     * @param locationPattern locationPattern
-     * @return Resource[]
      */
     public static Resource[] getResources(String locationPattern) {
         try {
@@ -70,9 +54,7 @@ public class PaaSResourceUtils extends org.springframework.util.ResourceUtils {
     }
 
     /**
-     * 失败，则返回空数组
-     * @param locationPatterns locationPatterns
-     * @return List<Resource>
+     * 失败，则返回空列表
      */
     public static List<Resource> getResources(String... locationPatterns) {
         List<Resource> ret = new ArrayList<>();
@@ -92,8 +74,6 @@ public class PaaSResourceUtils extends org.springframework.util.ResourceUtils {
      * 调用者保证，所有res的后缀都是suffix
      * file文件应该只有一个，因为放在目录中的配置文件，应该是最终的部署定制文件
      * 此时，还分多个，是不合适的
-     * @param resList resList
-     * @param suffix suffix
      */
     public static void sortResources(List<Resource> resList, String suffix) {
         resList.sort(new Comparator<Resource>() {
@@ -128,31 +108,14 @@ public class PaaSResourceUtils extends org.springframework.util.ResourceUtils {
         });
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param resList resList
-     */
     public static void sortProperties(List<Resource> resList) {
         sortResources(resList, PROPERTIES_SUFFIX);
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param resList resList
-     */
     public static void sortXmls(List<Resource> resList) {
         sortResources(resList, XML_SUFFIX);
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param locationPattern locationPattern
-     * @param suffix suffix
-     * @return List<Resource>
-     */
     public static List<Resource> getSortedResources(String locationPattern, String suffix) {
         if (StringUtils.isEmpty(locationPattern)) {
             throw new RuntimeException("Resource path must not be null or empty");
@@ -169,46 +132,19 @@ public class PaaSResourceUtils extends org.springframework.util.ResourceUtils {
         return resList;
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param locationPattern locationPattern
-     * @return List<Resource>
-     */
     public static List<Resource> getSortedPorperties(String locationPattern) {
         return getSortedResources(locationPattern, PROPERTIES_SUFFIX);
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param locationPattern locationPattern
-     * @return Properties
-     * @throws Exception Exception
-     */
     public static Properties loadMergedProperties(String locationPattern) throws Exception {
         PropertiesLoader loader = new PropertiesLoader(Arrays.asList(locationPattern));
         return loader.load();
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param locationPattern locationPattern
-     * @return List<Resource>
-     */
     public static List<Resource> getSortedXmls(String locationPattern) {
         return getSortedResources(locationPattern, XML_SUFFIX);
     }
 
-    /**
-     * TODO:同一个id转为不同class，重复加载数据了，可以考虑增加一个接口
-     * @param configId configId
-     * @param clazz Class<?>
-     * @param <T> T
-     * @return T
-     * @throws Exception Exception
-     */
     @SuppressWarnings("unchecked")
     public static <T> T loadConfigAs(String configId, Class<?> clazz) throws Exception {
         Object config = ConfigMgr.INSTANCE.getConfig(configId);

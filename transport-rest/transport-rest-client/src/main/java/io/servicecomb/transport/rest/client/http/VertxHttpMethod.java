@@ -26,14 +26,14 @@ import io.servicecomb.common.rest.codec.RestCodec;
 import io.servicecomb.common.rest.codec.param.RestClientRequestImpl;
 import io.servicecomb.common.rest.codec.produce.ProduceProcessor;
 import io.servicecomb.common.rest.definition.RestOperationMeta;
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.Const;
 import io.servicecomb.core.Invocation;
-import io.servicecomb.core.Response;
 import io.servicecomb.core.definition.OperationMeta;
-import io.servicecomb.core.exception.CommonExceptionData;
-import io.servicecomb.core.exception.ExceptionFactory;
 import io.servicecomb.core.transport.AbstractTransport;
+import io.servicecomb.swagger.invocation.AsyncResponse;
+import io.servicecomb.swagger.invocation.Response;
+import io.servicecomb.swagger.invocation.exception.CommonExceptionData;
+import io.servicecomb.swagger.invocation.exception.ExceptionFactory;
 import io.servicecomb.swagger.invocation.response.ResponseMeta;
 import io.servicecomb.foundation.common.net.IpPort;
 import io.servicecomb.foundation.common.utils.JsonUtils;
@@ -43,13 +43,6 @@ import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpClientResponse;
 
-/**
- * Http client实际发送请求的地方
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public abstract class VertxHttpMethod {
     private static final Logger LOGGER = LoggerFactory.getLogger(VertxHttpMethod.class);
 
@@ -89,27 +82,11 @@ public abstract class VertxHttpMethod {
         });
     }
 
-    /**
-     * 创建get, post, put, delete等httpclient request
-     * @param invocation
-     * @param ipPort
-     * @param path
-     * @param operation
-     * @param asyncResp
-     * @return
-     */
     protected abstract HttpClientRequest createRequest(HttpClient client, Invocation invocation, IpPort ipPort,
             String path,
             RestOperationMeta operation,
             AsyncResponse asyncResp);
 
-    /**
-     * 处理http请求的异步response
-     * @param invocation
-     * @param httpResponse
-     * @param restOperation
-     * @param asyncResp
-     */
     protected void handleResponse(Invocation invocation, HttpClientResponse httpResponse,
             RestOperationMeta restOperation,
             AsyncResponse asyncResp) {

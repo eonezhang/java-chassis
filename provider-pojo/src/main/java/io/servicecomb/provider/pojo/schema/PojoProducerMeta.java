@@ -22,39 +22,20 @@ import org.springframework.beans.factory.InitializingBean;
 
 import io.servicecomb.core.provider.producer.ProducerMeta;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月26日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class PojoProducerMeta extends ProducerMeta implements InitializingBean {
     @Inject
     protected PojoProducers pojoProducers;
 
     private String implementation;
 
-    /**
-     * 获取implementation的值
-     * @return 返回 implementation
-     */
     public String getImplementation() {
         return implementation;
     }
 
-    /**
-    * 对implementation进行赋值
-    * @param implementation implementation的新值
-    */
     public void setImplementation(String implementation) {
         this.implementation = implementation;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void afterPropertiesSet() throws Exception {
         pojoProducers.registerPojoProducer(this);

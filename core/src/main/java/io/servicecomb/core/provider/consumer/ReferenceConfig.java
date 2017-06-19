@@ -20,14 +20,6 @@ import io.servicecomb.core.Const;
 import io.servicecomb.core.CseContext;
 import io.servicecomb.core.definition.MicroserviceMeta;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年2月3日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class ReferenceConfig {
     private MicroserviceMeta microserviceMeta;
 
@@ -38,25 +30,15 @@ public class ReferenceConfig {
     public ReferenceConfig() {
     }
 
-    /**
-     * <构造函数>
-     * @param microserviceName
-     * @param microserviceVersionRule
-     * @param transport [参数说明]
-     */
     public ReferenceConfig(String microserviceName, String microserviceVersionRule, String transport) {
         this.microserviceMeta =
-            CseContext.getInstance().getConsumerSchemaFactory().getOrCreateConsumer(microserviceName,
+            CseContext.getInstance().getConsumerSchemaFactory().getOrCreateMicroserviceMeta(microserviceName,
                     microserviceVersionRule);
 
         this.microserviceVersionRule = microserviceVersionRule;
         this.transport = transport;
     }
 
-    /**
-     * 获取microserviceMeta的值
-     * @return 返回 microserviceMeta
-     */
     public MicroserviceMeta getMicroserviceMeta() {
         return microserviceMeta;
     }

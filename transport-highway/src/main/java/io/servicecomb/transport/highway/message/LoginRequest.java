@@ -22,14 +22,6 @@ import io.protostuff.ProtobufOutput;
 import io.protostuff.Tag;
 import io.vertx.core.buffer.Buffer;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年5月8日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class LoginRequest {
     private static WrapSchema loginRequestSchema = ProtobufSchemaUtils.getOrCreateSchema(LoginRequest.class);
 
@@ -38,7 +30,7 @@ public class LoginRequest {
     }
 
     public static LoginRequest readObject(Buffer bodyBuffer) throws Exception {
-        return loginRequestSchema.readObject(bodyBuffer);
+        return loginRequestSchema.readObject(bodyBuffer, null);
     }
 
     @Tag(1)
@@ -47,6 +39,12 @@ public class LoginRequest {
     // 压缩算法名字
     @Tag(2)
     private String zipName;
+
+    // 历史版本中的protoStuff实现的protobuf的map编码与标准的protobuf不兼容
+    // 为保持highway的兼容，旧的不兼容编码也要保留
+    // 只有LoginRequest/LoginResponse同时为true时，才使用标准protobuf编码
+    @Tag(3)
+    private boolean useProtobufMapCodec;
 
     public String getProtocol() {
         return protocol;
@@ -62,6 +60,14 @@ public class LoginRequest {
 
     public void setZipName(String zipName) {
         this.zipName = zipName;
+    }
+
+    public boolean isUseProtobufMapCodec() {
+        return useProtobufMapCodec;
+    }
+
+    public void setUseProtobufMapCodec(boolean useProtobufMapCodec) {
+        this.useProtobufMapCodec = useProtobufMapCodec;
     }
 
     public void writeObject(ProtobufOutput output) throws Exception {

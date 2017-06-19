@@ -20,19 +20,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.util.ClassUtils;
-
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年2月18日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class ClassConfig {
 
     private String className;
@@ -45,34 +35,18 @@ public class ClassConfig {
 
     private List<MethodConfig> methodList = new ArrayList<>();
 
-    /**
-     * 获取intf的值
-     * @return 返回 intf
-     */
     public boolean isIntf() {
         return intf;
     }
 
-    /**
-     * 对intf进行赋值
-     * @param intf intf的新值
-     */
     public void setIntf(boolean intf) {
         this.intf = intf;
     }
 
-    /**
-     * 获取className的值
-     * @return 返回 className
-     */
     public String getClassName() {
         return className;
     }
 
-    /**
-     * 对className进行赋值
-     * @param className className的新值
-     */
     public void setClassName(String className) {
         this.className = className;
     }
@@ -85,47 +59,30 @@ public class ClassConfig {
         intfList.add(intf);
     }
 
-    /**
-     * 获取intfList的值
-     * @return 返回 intfList
-     */
     public List<String> getIntfList() {
         return intfList;
     }
 
-    /**
-     * 获取fieldList的值
-     * @return 返回 fieldList
-     */
     public List<FieldConfig> getFieldList() {
         return fieldList;
     }
 
-    public void addField(String name, Class<?> type) {
-        addField(name, type, (String) null);
+    public FieldConfig addField(String name, Type genericType) {
+        return addField(name, TypeFactory.defaultInstance().constructType(genericType));
     }
 
-    public void addField(String name, Type genericType) {
-        addField(name, TypeFactory.defaultInstance().constructType(genericType));
-    }
-
-    public void addField(String name, JavaType javaType) {
-        String genericSignature = javaType.hasGenericTypes() ? javaType.getGenericSignature() : null;
-        addField(name, javaType.getRawClass(), genericSignature);
-    }
-
-    public void addField(String name, Class<?> type, String genericSignature) {
-        type = ClassUtils.resolvePrimitiveIfNecessary(type);
-
+    public FieldConfig addField(String name, JavaType javaType) {
         FieldConfig field = new FieldConfig();
         field.setName(name);
-        field.setType(type);
-        field.setGenericSignature(genericSignature);
+        field.setType(javaType);
 
         fieldList.add(field);
+
+        return field;
     }
 
     public void addMethod(MethodConfig methodConfig) {
+        methodConfig.init();
         methodList.add(methodConfig);
     }
 
@@ -140,10 +97,6 @@ public class ClassConfig {
         addMethod(methodConfig);
     }
 
-    /**
-     * 获取methodSourceList的值
-     * @return 返回 methodSourceList
-     */
     public List<MethodConfig> getMethodList() {
         return methodList;
     }

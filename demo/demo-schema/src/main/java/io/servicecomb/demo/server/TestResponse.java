@@ -16,29 +16,13 @@
 
 package io.servicecomb.demo.server;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月6日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class TestResponse {
     private User user;
 
-    /**
-     * 获取user的值
-     * @return 返回 user
-     */
     public User getUser() {
         return user;
     }
 
-    /**
-     * 对user进行赋值
-     * @param user user的新值
-     */
     public void setUser(User user) {
         this.user = user;
     }

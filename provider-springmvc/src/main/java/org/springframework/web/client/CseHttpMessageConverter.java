@@ -35,10 +35,6 @@ import io.servicecomb.provider.springmvc.reference.CseClientHttpResponse;
 /**
  * 需要访问MessageBodyClientHttpResponseWrapper
  * 这是一个package级别的类，只好放在特殊的包内了
- *
- * @version  [版本号, 2017年1月16日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class CseHttpMessageConverter implements HttpMessageConverter<Object> {
 
@@ -51,33 +47,21 @@ public class CseHttpMessageConverter implements HttpMessageConverter<Object> {
         RESPONSE_FIELD.setAccessible(true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean canRead(Class<?> clazz, MediaType mediaType) {
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean canWrite(Class<?> clazz, MediaType mediaType) {
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<MediaType> getSupportedMediaTypes() {
         return ALL_MEDIA_TYPE;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object read(Class<? extends Object> clazz,
             HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
@@ -87,9 +71,6 @@ public class CseHttpMessageConverter implements HttpMessageConverter<Object> {
         return resp.getResult();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void write(Object t, MediaType contentType,
             HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {

@@ -26,8 +26,7 @@ import io.servicecomb.common.rest.codec.RestServerRequestInternal;
 import io.servicecomb.common.rest.codec.produce.ProduceProcessor;
 import io.servicecomb.common.rest.definition.RestOperationMeta;
 import io.servicecomb.core.Invocation;
-import io.servicecomb.core.Response;
-
+import io.servicecomb.swagger.invocation.Response;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
@@ -48,9 +47,6 @@ public class TestVertxRestServer {
                 return super.findRestOperation(restRequest);
             }
 
-            /**
-             * {@inheritDoc}
-             */
             @Override
             public void sendFailResponse(RestServerRequestInternal restRequest, HttpServerResponse httpResponse,
                     Throwable throwable) {

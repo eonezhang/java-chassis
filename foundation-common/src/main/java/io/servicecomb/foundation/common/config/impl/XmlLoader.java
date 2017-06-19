@@ -27,28 +27,15 @@ import org.w3c.dom.NodeList;
 
 /**
  * 无逻辑append xml
- *
- * @version  [版本号, 2016年11月21日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class XmlLoader extends AbstractLoader {
 
     private String suffix;
 
-    /**
-     * <构造函数>
-     * @param locationPatternList locationPatternList
-     */
     public XmlLoader(List<String> locationPatternList) {
         this(locationPatternList, PaaSResourceUtils.XML_SUFFIX);
     }
 
-    /**
-     * <构造函数>
-     * @param locationPatternList locationPatternList
-     * @param suffix suffix
-     */
     public XmlLoader(List<String> locationPatternList, String suffix) {
         super(locationPatternList);
         this.suffix = suffix;
@@ -93,12 +80,6 @@ public class XmlLoader extends AbstractLoader {
         return (T) doc;
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param ele ele
-     * @return Element
-     */
     protected Element findAndSetExist(Element ele) {
         return null;
     }

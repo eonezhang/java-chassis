@@ -27,10 +27,6 @@ import java.util.Map;
 
 /**
  * tranport公共的Endpoint Object，当transport使用URI表示的时候，可以转化为这个对象。
- *
- * @version  [版本号, 2017年3月21日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class URIEndpointObject extends IpPort {
     private static final String SSL_ENABLED_KEY = "sslEnabled";
@@ -39,10 +35,6 @@ public class URIEndpointObject extends IpPort {
 
     private Map<String, List<String>> querys;
 
-    /**
-     * 使用URI初始化对象
-     * @param endpoint [参数说明]
-     */
     public URIEndpointObject(String endpoint) {
         URI uri = URI.create(endpoint);
         setHostOrIp(uri.getHost());

@@ -23,13 +23,8 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import io.servicecomb.common.rest.codec.RestClientRequest;
 import io.servicecomb.common.rest.codec.RestServerRequest;
 
-/**
- * 用于处理Jaxrs中的Path类型参数
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
+import io.swagger.models.parameters.Parameter;
+
 public class PathProcessorCreator implements ParamValueProcessorCreator {
     public static final String PARAMTYPE = "path";
 
@@ -38,9 +33,6 @@ public class PathProcessorCreator implements ParamValueProcessorCreator {
             super(paramPath, targetType);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Object getValue(RestServerRequest request) throws Exception {
             String value = request.getPathParam(paramPath);
@@ -50,9 +42,6 @@ public class PathProcessorCreator implements ParamValueProcessorCreator {
             return convertValue(value, targetType);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void setValue(RestClientRequest clientRequest, Object arg) throws Exception {
             // path不需要set
@@ -69,13 +58,10 @@ public class PathProcessorCreator implements ParamValueProcessorCreator {
         ParamValueProcessorCreatorManager.INSTANCE.register(PARAMTYPE, this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public ParamValueProcessor create(String paramValue, Type genericParamType) {
+    public ParamValueProcessor create(Parameter parameter, Type genericParamType) {
         JavaType targetType = TypeFactory.defaultInstance().constructType(genericParamType);
-        return new PathProcessor(paramValue, targetType);
+        return new PathProcessor(parameter.getName(), targetType);
     }
 
 }

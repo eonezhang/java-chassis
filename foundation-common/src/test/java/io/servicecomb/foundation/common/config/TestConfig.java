@@ -35,15 +35,6 @@ import org.w3c.dom.NodeList;
 import io.servicecomb.foundation.common.utils.BeanUtils;
 import io.servicecomb.foundation.common.utils.Log4jUtils;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- * 
- *
- * @version  [版本号, 2016年11月22日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class TestConfig {
 
     private static final int TEST_PROP_LIST_SIZE = 2;
@@ -57,10 +48,6 @@ public class TestConfig {
 
     }
 
-    /**
-     * 根据id读取配置
-     * @throws Exception Exception
-     */
     @Test
     public void loadMergedProperties() throws Exception {
         Properties prop = ConfigMgr.INSTANCE.getConfig("pTest");
@@ -69,40 +56,24 @@ public class TestConfig {
         Assert.assertEquals("2", prop.get("1.2"));
     }
 
-    /**
-     * spring的placeholder，根据id注入配置
-     */
     @Test
     public void testBean() {
         BeanProp bp = (BeanProp) BeanUtils.getBean("beanProp");
         Assert.assertEquals("2", bp.getTest());
     }
 
-    /**
-     * Test Get/Set Context
-     */
     @Test
     public void testBeanContext() {
         BeanUtils.setContext(context);
         Assert.assertEquals(context, BeanUtils.getContext());
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @throws Exception Exception
-     */
     @Test
     public void testConvertProperties() throws Exception {
         BeanProp bp = PaaSResourceUtils.loadConfigAs("pTest", BeanProp.class);
         Assert.assertEquals("2", bp.getTest());
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述> 
-     * @throws Exception Exception
-     */
     @Test
     public void testConvertXml() throws Exception {
         Object ret = PaaSResourceUtils.loadConfigAs("xTest", BeanProp.class);
@@ -110,10 +81,6 @@ public class TestConfig {
         Assert.assertEquals("test value", bp.getTest());
     }
 
-    /**
-     * 使用默认方式对xml做增量加载
-     * @throws Exception Exception
-     */
     @Test
     public void testXml() throws Exception {
         List<String> locationPatternList = new ArrayList<>();
@@ -172,10 +139,6 @@ public class TestConfig {
         }
     }
 
-    /**
-     * 使用根据id合并的方式增量加载
-     * @throws Exception Exception
-     */
     @Test
     public void testIdXml() throws Exception {
         List<String> locationPatternList = new ArrayList<>();
@@ -209,10 +172,6 @@ public class TestConfig {
         Assert.assertEquals("classpath*:config/test.ext.xml", pathListXml.item(1).getTextContent());
     }
 
-    /**
-     * Test PaaSResourceUtils
-     * @throws Exception 
-     */
     @Test
     public void testPaaSResourceUtils() throws Exception {
         List<Resource> oList = PaaSResourceUtils.getSortedXmls("test.xml");

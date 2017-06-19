@@ -16,56 +16,50 @@
 
 package io.servicecomb.core;
 
+import io.servicecomb.serviceregistry.api.registry.MicroserviceInstance;
+
 /**
  * Endpoint : 表示一个Endpoint。Tranport识别其内部格式.
- *
- * @version  [版本号, 2017年1月26日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class Endpoint {
-    // 格式：grpc://192.168.1.1:8080
+    // 格式：rest://192.168.1.1:8080
     // see: http://www.ietf.org/rfc/rfc2396.txt
     private final String endpoint;
 
     private final Transport transport;
 
+    private final MicroserviceInstance instance;
+
     // 内部格式， 只有Transport能够认识
     private final Object address;
 
     public Endpoint(Transport transport, String endpoint) {
+        this(transport, endpoint, null);
+    }
+
+    public Endpoint(Transport transport, String endpoint, MicroserviceInstance instance) {
         this.transport = transport;
         this.endpoint = endpoint;
+        this.instance = instance;
         this.address = transport.parseAddress(this.endpoint);
     }
 
-    /**
-     * 获取endpoint的值
-     * @return 返回 endpoint
-     */
     public String getEndpoint() {
         return endpoint;
     }
 
-    /**
-     * 获取transport的值
-     * @return 返回 transport
-     */
+    public MicroserviceInstance getMicroserviceInstance() {
+        return instance;
+    }
+
     public Transport getTransport() {
         return transport;
     }
 
-    /**
-     * 获取address的值
-     * @return 返回 address
-     */
     public Object getAddress() {
         return address;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return endpoint;

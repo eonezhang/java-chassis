@@ -33,14 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月22日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public final class Log4jUtils {
     private static final String MERGED_FILE = "merged.log4j.properties";
 
@@ -52,22 +44,15 @@ public final class Log4jUtils {
     private Log4jUtils() {
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @throws Exception Exception
-     */
     public static void init() throws Exception {
-        init("classpath*:config/log4j.properties");
+        init(Arrays.asList("classpath*:config/base/log4j.properties", "classpath*:config/log4j.properties"));
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param locationPattern locationPattern
-     * @throws Exception Exception
-     */
     public static void init(String locationPattern) throws Exception {
+        init(Arrays.asList(locationPattern));
+    }
+
+    public static void init(List<String> locationPatterns) throws Exception {
         if (inited) {
             return;
         }
@@ -77,10 +62,10 @@ public final class Log4jUtils {
                 return;
             }
 
-            PropertiesLoader loader = new PropertiesLoader(Arrays.asList(locationPattern));
+            PropertiesLoader loader = new PropertiesLoader(locationPatterns);
             Properties properties = loader.load();
             if (properties.isEmpty()) {
-                throw new Exception("can not find resource " + locationPattern);
+                throw new Exception("can not find resource " + locationPatterns);
             }
 
             PropertyConfigurator.configure(properties);

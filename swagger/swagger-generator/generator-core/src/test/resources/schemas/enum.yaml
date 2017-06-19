@@ -1,0 +1,41 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "swagger definition for io.servicecomb.swagger.generator.core.schema.Schema"
+  x-java-interface: "gen.cse.ms.ut.SchemaIntf"
+basePath: "/Schema"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /testEnum:
+    post:
+      operationId: "testEnum"
+      parameters:
+      - in: "body"
+        name: "testEnumBody"
+        required: false
+        schema:
+          $ref: "#/definitions/testEnumBody"
+      responses:
+        200:
+          description: "response of 200"
+definitions:
+  testEnumBody:
+    type: "object"
+    properties:
+      color:
+        type: "string"
+        enum:
+        - "WHITE"
+        - "BLACK"
+        x-java-class: "io.servicecomb.swagger.generator.core.schema.Color"
+      color1:
+        type: "string"
+        enum:
+        - "WHITE"
+        - "BLACK"
+        x-java-class: "io.servicecomb.swagger.generator.core.schema.Color"
+    x-java-class: "gen.cse.ms.ut.testEnumBody"

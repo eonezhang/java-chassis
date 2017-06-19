@@ -21,21 +21,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.netflix.config.DynamicPropertyFactory;
 
+import io.servicecomb.foundation.common.utils.Log4jUtils;
+import io.servicecomb.springboot.starter.provider.EnableServiceComb;
+
 /**
  * 
  *
  *
  */
 @SpringBootApplication
+@EnableServiceComb
 public class PojoServer {
 
-    /**
-     * 
-     * @param args
-     * @throws Exception
-     */
     public static void main(final String[] args) throws Exception {
-
+        Log4jUtils.init();
         SpringApplication.run(PojoServer.class, args);
         String port = DynamicPropertyFactory.getInstance().getStringProperty("server.port", null).get();
         System.out.println("port ----------->" + port);

@@ -15,21 +15,14 @@
  */
 package io.servicecomb.demo.springmvc.client;
 
-import io.servicecomb.demo.server.User;
+import java.util.Date;
+
 import org.springframework.http.ResponseEntity;
 
-import io.servicecomb.core.Response;
+import io.servicecomb.swagger.invocation.Response;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年4月24日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public interface CodeFirstSprigmvcIntf {
-    ResponseEntity<User> responseEntity();
+    ResponseEntity<Date> responseEntity(Date date);
 
     Response cseResponse();
 }

@@ -25,14 +25,15 @@ import java.util.concurrent.Executor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.Invocation;
-import io.servicecomb.core.Response;
 import io.servicecomb.core.exception.ExceptionUtils;
 import io.servicecomb.core.handler.impl.AbstractHandler;
 import io.servicecomb.core.provider.consumer.SyncResponseExecutor;
 import io.servicecomb.loadbalance.filter.IsolationServerListFilter;
 import io.servicecomb.loadbalance.filter.TransactionControlFilter;
+import io.servicecomb.swagger.invocation.AsyncResponse;
+import io.servicecomb.swagger.invocation.Response;
+
 import com.netflix.client.DefaultLoadBalancerRetryHandler;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RoundRobinRule;
@@ -48,9 +49,6 @@ import rx.Observable;
 /**
  * 负载均衡处理链
  *
- * @version  [版本号, 2017年1月9日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class LoadbalanceHandler extends AbstractHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoadbalanceHandler.class);
@@ -100,11 +98,6 @@ public class LoadbalanceHandler extends AbstractHandler {
         }
     }
 
-    /**
-     * 设置隔离机制
-     * @param lb
-     * @param invocation
-     */
     protected void setIsolationFilter(LoadBalancer lb, Invocation invocation) {
         final String filterName = IsolationServerListFilter.class.getName();
         boolean isIsolationOpen = Configuration.INSTANCE.isIsolationFilterOpen(invocation.getMicroserviceName());
@@ -121,11 +114,6 @@ public class LoadbalanceHandler extends AbstractHandler {
         lb.putFilter(filterName, isolationListFilter);
     }
 
-    /**
-     * 设置动态路由分流机制
-     * @param lb
-     * @param invocation
-     */
     protected void setTransactionControlFilter(LoadBalancer lb, Invocation invocation) {
         final String filterName = TransactionControlFilter.class.getName();
         String policyClsName = Configuration.INSTANCE.getFlowsplitFilterPolicy(invocation.getMicroserviceName());

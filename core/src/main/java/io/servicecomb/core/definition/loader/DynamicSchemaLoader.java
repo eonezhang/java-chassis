@@ -38,11 +38,6 @@ import io.servicecomb.foundation.common.config.PaaSResourceUtils;
  *   需要支持在不同的产品中部署为不同的微服务名
  *   微服务名是由环境变量等等方式注入的
  *   此时可以在BootListener中进行注册（必须在producer初始化之前注册契约）
- *
- *
- * @version  [版本号, 2017年3月30日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class DynamicSchemaLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(DynamicSchemaLoader.class);
@@ -52,7 +47,6 @@ public class DynamicSchemaLoader {
     /**
      * 动态注册指定目录下的schema契约到当前服务
      * @param schemaLocation eg. "classpath*:schemas/*.yaml"
-     * @throws Exception
      */
     public void registerSchemas(String schemaLocation) {
         registerSchemas(RegistryUtils.getMicroservice().getServiceName(), schemaLocation);
@@ -60,9 +54,8 @@ public class DynamicSchemaLoader {
 
     /**
      * 动态注册指定目录下的schema契约到指定服务
-     * @param microserviceName
+     * @param microserviceName name of microservice
      * @param schemaLocation eg. "classpath*:schemas/*.yaml"
-     * @throws Exception
      */
     public void registerSchemas(String microserviceName, String schemaLocation) {
         LOGGER.info("dynamic register schemas for {} in {}", microserviceName, schemaLocation);

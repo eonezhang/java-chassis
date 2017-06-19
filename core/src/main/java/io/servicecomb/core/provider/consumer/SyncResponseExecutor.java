@@ -19,15 +19,11 @@ package io.servicecomb.core.provider.consumer;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 
-import io.servicecomb.core.Response;
+import io.servicecomb.swagger.invocation.Response;
 
 /**
  * 业务线程在阻塞等待着，不必另起线程
  * 将应答流程包装为Runnable，先唤醒业务线程，再在业务线程中执行runnable
- *
- * @version  [版本号, 2016年12月20日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class SyncResponseExecutor implements Executor {
     private CountDownLatch latch;
@@ -36,16 +32,10 @@ public class SyncResponseExecutor implements Executor {
 
     private Response response;
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public SyncResponseExecutor() {
         latch = new CountDownLatch(1);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void execute(Runnable cmd) {
         this.cmd = cmd;
@@ -63,10 +53,6 @@ public class SyncResponseExecutor implements Executor {
         return response;
     }
 
-    /**
-     * 对response进行赋值
-     * @param response response的新值
-     */
     public void setResponse(Response response) {
         this.response = response;
         if (cmd == null) {

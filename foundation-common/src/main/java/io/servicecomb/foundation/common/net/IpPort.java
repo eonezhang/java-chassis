@@ -18,14 +18,6 @@ package io.servicecomb.foundation.common.net;
 
 import java.net.InetSocketAddress;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class IpPort {
     private String hostOrIp;
 
@@ -35,25 +27,15 @@ public class IpPort {
 
     private final Object lock = new Object();
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public IpPort() {
 
     }
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public IpPort(String hostOrIp, int port) {
         this.hostOrIp = hostOrIp;
         this.port = port;
     }
 
-    /**
-     * 获取hostOrIp的值
-     * @return 返回 hostOrIp
-     */
     public String getHostOrIp() {
         return hostOrIp;
     }
@@ -62,26 +44,14 @@ public class IpPort {
         this.hostOrIp = hostOrIp;
     }
 
-    /**
-     * 获取port的值
-     * @return 返回 port
-     */
     public int getPort() {
         return port;
     }
 
-    /**
-     * 对port进行赋值
-     * @param port port的新值
-     */
     public void setPort(int port) {
         this.port = port;
     }
 
-    /**
-     * 获取socketAddress的值
-     * @return 返回 socketAddress
-     */
     public InetSocketAddress getSocketAddress() {
         if (socketAddress == null) {
             synchronized (lock) {

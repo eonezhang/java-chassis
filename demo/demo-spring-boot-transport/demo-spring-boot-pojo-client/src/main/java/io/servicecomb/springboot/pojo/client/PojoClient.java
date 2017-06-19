@@ -19,20 +19,20 @@ package io.servicecomb.springboot.pojo.client;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import io.servicecomb.foundation.common.utils.Log4jUtils;
+import io.servicecomb.springboot.starter.provider.EnableServiceComb;
+
 /**
  * SpringmvcClient
  *
  *
  */
 @SpringBootApplication
+@EnableServiceComb
 public class PojoClient {
 
-    /**
-     * 
-     * @param args
-     * @throws Exception
-     */
     public static void main(final String[] args) throws Exception {
+        Log4jUtils.init();
         SpringApplication.run(PojoClient.class, args);
 
         io.servicecomb.demo.pojo.client.PojoClientTest.runTest();

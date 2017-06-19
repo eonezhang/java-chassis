@@ -30,22 +30,10 @@ import io.servicecomb.core.definition.OperationMeta;
 import io.servicecomb.core.definition.SchemaMeta;
 import io.servicecomb.core.definition.loader.SchemaListener;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- *
- * @version  [版本号, 2017年4月5日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 @Component
 public class RestEngineSchemaListener implements SchemaListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestEngineSchemaListener.class);
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onSchemaLoaded(SchemaMeta... schemaMetas) {
         // 此时相应的ServicePathManager可能正在被使用，为避免太高的复杂度，使用copy on write逻辑

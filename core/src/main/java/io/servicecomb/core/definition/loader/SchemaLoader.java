@@ -40,14 +40,6 @@ import io.servicecomb.serviceregistry.api.registry.Microservice;
 
 import io.swagger.models.Swagger;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年3月13日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 @Component
 public class SchemaLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(SchemaLoader.class);
@@ -61,10 +53,6 @@ public class SchemaLoader {
 
     /**
      * resource的路径格式，至少是以这个形式结尾：schemaId.yaml
-     * @param microserviceName
-     * @param resource
-     * @return
-     * @throws Exception
      */
     public SchemaMeta registerSchema(String microserviceName, Resource resource) {
         try {

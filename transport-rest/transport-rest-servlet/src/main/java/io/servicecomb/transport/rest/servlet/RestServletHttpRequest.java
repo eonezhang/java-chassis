@@ -28,10 +28,6 @@ import io.servicecomb.common.rest.codec.RestServerRequestInternal;
 
 /**
  * 封装HttpServletRequest为具有RestHttpRequest接口的类，统一多种rest transport request
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class RestServletHttpRequest implements RestServerRequestInternal {
     private HttpServletRequest request;
@@ -45,33 +41,26 @@ public class RestServletHttpRequest implements RestServerRequestInternal {
         this.asyncCtx = asyncCtx;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getPath() {
         return request.getRequestURI();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMethod() {
         return request.getMethod();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
+    public String getContentType() {
+        return request.getContentType();
+    }
+
     @Override
     public void setPathParamMap(Map<String, String> pathParamMap) {
         this.pathParamMap = pathParamMap;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void complete() {
         asyncCtx.complete();

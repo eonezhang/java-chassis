@@ -20,21 +20,9 @@ import java.util.List;
 
 import io.servicecomb.foundation.common.config.ConfigLoader;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月21日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public abstract class AbstractLoader implements ConfigLoader {
     protected List<String> locationPatternList;
 
-    /**
-     * <构造函数>
-     * @param locationPatternList List<String>
-     */
     public AbstractLoader(List<String> locationPatternList) {
         this.locationPatternList = locationPatternList;
     }

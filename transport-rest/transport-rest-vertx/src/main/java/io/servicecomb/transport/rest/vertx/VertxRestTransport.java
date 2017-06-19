@@ -18,7 +18,6 @@ package io.servicecomb.transport.rest.vertx;
 
 import org.springframework.stereotype.Component;
 
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.Const;
 import io.servicecomb.core.Invocation;
 import io.servicecomb.core.transport.AbstractTransport;
@@ -27,30 +26,16 @@ import io.servicecomb.transport.rest.client.RestTransportClientManager;
 import io.servicecomb.foundation.common.net.URIEndpointObject;
 import io.servicecomb.foundation.vertx.SimpleJsonObject;
 import io.servicecomb.foundation.vertx.VertxUtils;
-
+import io.servicecomb.swagger.invocation.AsyncResponse;
 import io.vertx.core.DeploymentOptions;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 @Component
 public class VertxRestTransport extends AbstractTransport {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getName() {
         return Const.RESTFUL;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean init() throws Exception {
         // 部署transport server
@@ -62,9 +47,6 @@ public class VertxRestTransport extends AbstractTransport {
         return VertxUtils.blockDeploy(transportVertx, RestServerVerticle.class, options);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void send(Invocation invocation, AsyncResponse asyncResp) throws Exception {
         URIEndpointObject endpoint = (URIEndpointObject) invocation.getEndpoint().getAddress();

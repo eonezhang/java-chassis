@@ -21,19 +21,13 @@ import java.nio.ByteBuffer;
 import io.protostuff.ByteBufferInput;
 import io.protostuff.Input;
 import io.protostuff.Output;
+import io.protostuff.runtime.ProtobufFeature;
+import io.protostuff.runtime.ProtobufFeatureUtils;
 import io.vertx.core.buffer.Buffer;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月16日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public interface WrapSchema {
     @SuppressWarnings("unchecked")
-    default <T> T readObject(Buffer buffer) throws Exception {
+    default <T> T readObject(Buffer buffer, ProtobufFeature protobufFeature) throws Exception {
         if (buffer == null || buffer.length() == 0) {
             // void以及函数入参为null的场景
             // 空串时,protobuf至少为编码为1字节
@@ -43,7 +37,21 @@ public interface WrapSchema {
         ByteBuffer nioBuffer = buffer.getByteBuf().nioBuffer();
         Input input = new ByteBufferInput(nioBuffer, false);
 
-        return (T) readObject(input);
+        ProtobufFeatureUtils.setProtobufFeature(protobufFeature);
+        try {
+            return (T) readObject(input);
+        } finally {
+            ProtobufFeatureUtils.removeProtobufFeature();
+        }
+    }
+
+    default void writeObject(Output output, Object value, ProtobufFeature protobufFeature) throws Exception {
+        ProtobufFeatureUtils.setProtobufFeature(protobufFeature);
+        try {
+            writeObject(output, value);
+        } finally {
+            ProtobufFeatureUtils.removeProtobufFeature();
+        }
     }
 
     Object readFromEmpty();

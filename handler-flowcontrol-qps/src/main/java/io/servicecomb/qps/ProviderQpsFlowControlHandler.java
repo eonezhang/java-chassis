@@ -16,19 +16,16 @@
 
 package io.servicecomb.qps;
 
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.Const;
 import io.servicecomb.core.Invocation;
-import io.servicecomb.core.exception.CommonExceptionData;
-import io.servicecomb.core.exception.InvocationException;
 import io.servicecomb.core.handler.impl.AbstractHandler;
+import io.servicecomb.swagger.invocation.AsyncResponse;
+import io.servicecomb.swagger.invocation.exception.CommonExceptionData;
+import io.servicecomb.swagger.invocation.exception.InvocationException;
 
 public class ProviderQpsFlowControlHandler extends AbstractHandler {
     private ProviderQpsControllerManager qpsControllerMgr = new ProviderQpsControllerManager();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
         if (!Config.INSTANCE.isProviderEnabled()) {

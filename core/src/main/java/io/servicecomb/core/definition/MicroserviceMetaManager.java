@@ -24,10 +24,6 @@ import io.servicecomb.foundation.common.RegisterManager;
 
 /**
  * key为microserviceName(app内部)或者appId:microserviceName(跨app)
- *
- * @version [版本号, 2016年11月30日]
- * @see  [相关类/方法]
- * @since [产品/模块版本]
  */
 @Component
 public class MicroserviceMetaManager extends RegisterManager<String, MicroserviceMeta> {
@@ -35,9 +31,6 @@ public class MicroserviceMetaManager extends RegisterManager<String, Microservic
 
     private final Object lock = new Object();
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public MicroserviceMetaManager() {
         super(MICROSERVICE_SCHEMA_MGR);
     }
@@ -60,6 +53,9 @@ public class MicroserviceMetaManager extends RegisterManager<String, Microservic
                 if (microserviceMeta == null) {
                     microserviceMeta = new MicroserviceMeta(microserviceName);
                     register(microserviceName, microserviceMeta);
+                    if (!microserviceName.equals(microserviceMeta.getShortName())) {
+                        register(microserviceMeta.getShortName(), microserviceMeta);
+                    }
                 }
             }
         }

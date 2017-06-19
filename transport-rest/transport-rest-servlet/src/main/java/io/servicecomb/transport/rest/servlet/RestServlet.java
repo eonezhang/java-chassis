@@ -31,10 +31,6 @@ import io.servicecomb.core.CseContext;
 
 /**
  * Rest Servlet Server，通过Tomcat拉起
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class RestServlet extends HttpServlet {
     private static final long serialVersionUID = 5797523329773923112L;
@@ -53,9 +49,6 @@ public class RestServlet extends HttpServlet {
         LOGGER.info("Rest Servlet inited");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void service(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException, IOException {

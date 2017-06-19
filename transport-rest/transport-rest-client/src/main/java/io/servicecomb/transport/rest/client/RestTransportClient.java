@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 
 import io.servicecomb.common.rest.RestConst;
 import io.servicecomb.common.rest.definition.RestOperationMeta;
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.Invocation;
 import io.servicecomb.core.definition.OperationMeta;
 import io.servicecomb.foundation.ssl.SSLCustom;
@@ -34,19 +33,11 @@ import io.servicecomb.foundation.vertx.VertxUtils;
 import io.servicecomb.foundation.vertx.client.ClientPoolManager;
 import io.servicecomb.foundation.vertx.client.http.HttpClientVerticle;
 import io.servicecomb.foundation.vertx.client.http.HttpClientWithContext;
-
+import io.servicecomb.swagger.invocation.AsyncResponse;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClientOptions;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年1月16日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public final class RestTransportClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestTransportClient.class);
 
@@ -69,10 +60,6 @@ public final class RestTransportClient {
         VertxUtils.blockDeploy(vertx, HttpClientVerticle.class, deployOptions);
     }
 
-    /**
-     * 创建http client配置项
-     * @return
-     */
     private HttpClientOptions createHttpClientOptions() {
         HttpClientOptions httpClientOptions = new HttpClientOptions();
 
@@ -92,13 +79,6 @@ public final class RestTransportClient {
         return httpClientOptions;
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param invocation
-     * @param asyncResp
-     * @throws Exception
-     */
     public void send(Invocation invocation, AsyncResponse asyncResp) throws Exception {
         HttpClientWithContext httpClientWithContext = clientMgr.findThreadBindClientPool();
 

@@ -30,14 +30,6 @@ import io.servicecomb.serviceregistry.RegistryUtils;
 import io.servicecomb.foundation.common.RegisterManager;
 import io.servicecomb.foundation.common.utils.BeanUtils;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月29日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 @Component
 public class PojoProducerProvider extends AbstractProducerProvider {
     private RegisterManager<String, InstanceFactory> instanceFactoryMgr =
@@ -58,35 +50,29 @@ public class PojoProducerProvider extends AbstractProducerProvider {
         regsiterInstanceFactory(new SpringInstanceFactory());
     }
 
-    /**
-     * {@inheritDoc}
-     * @throws Exception
-     */
     @Override
     public void init() throws Exception {
         for (PojoProducerMeta pojoProducerMeta : pojoProducers.getProcucers()) {
             initPojoProducerMeta(pojoProducerMeta);
 
-            producerSchemaFactory.getOrCreateProducerSchema(
-                    RegistryUtils.getMicroservice().getServiceName(),
-                    pojoProducerMeta.getSchemaId(),
-                    pojoProducerMeta.getInstanceClass(),
-                    pojoProducerMeta.getInstance());
+            try {
+                producerSchemaFactory.getOrCreateProducerSchema(
+                        RegistryUtils.getMicroservice().getServiceName(),
+                        pojoProducerMeta.getSchemaId(),
+                        pojoProducerMeta.getInstanceClass(),
+                        pojoProducerMeta.getInstance());
+            } catch (Throwable e) {
+                throw new Error(
+                        "create producer schema failed, class=" + pojoProducerMeta.getInstanceClass().getName(), e);
+            }
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getName() {
         return PojoConst.POJO;
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     */
     private void initPojoProducerMeta(PojoProducerMeta pojoProducerMeta) {
         if (pojoProducerMeta.getInstance() != null) {
             return;
@@ -102,11 +88,6 @@ public class PojoProducerProvider extends AbstractProducerProvider {
         pojoProducerMeta.setInstanceClass(instanceClass);
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @return
-     */
     private String[] parseImplementation(String implementation) {
         String implName = PojoConst.POJO;
         String implValue = implementation;

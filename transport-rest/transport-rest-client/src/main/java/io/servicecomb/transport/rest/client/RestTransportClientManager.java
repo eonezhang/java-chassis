@@ -20,15 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.servicecomb.foundation.vertx.VertxUtils;
-
 import io.vertx.core.Vertx;
 
 /**
  * REST客户端。只需要两个实例， 一个ssl，一个非ssl.
- *
- * @version  [版本号, 2017年3月16日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public final class RestTransportClientManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestTransportClientManager.class);

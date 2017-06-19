@@ -25,14 +25,6 @@ import io.servicecomb.core.definition.SchemaMeta;
 import io.servicecomb.core.provider.consumer.ReferenceConfig;
 import com.netflix.config.DynamicPropertyFactory;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年1月5日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public final class InvocationFactory {
     private static String microserviceName = getMicroserviceName();
 
@@ -47,14 +39,6 @@ public final class InvocationFactory {
         InvocationFactory.microserviceName = microserviceName;
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param referenceConfig
-     * @param operationMeta
-     * @param swaggerArguments
-     * @return
-     */
     public static Invocation forConsumer(ReferenceConfig referenceConfig, OperationMeta operationMeta,
                                          Object[] swaggerArguments) {
         Invocation invocation = new Invocation(referenceConfig,
@@ -66,11 +50,6 @@ public final class InvocationFactory {
 
     /**
      * consumer端使用，schemaMeta级别的缓存，每次调用根据operationName来执行
-     * @param referenceConfig
-     * @param schemaMeta
-     * @param operationName
-     * @param swaggerArguments
-     * @return
      */
     public static Invocation forConsumer(ReferenceConfig referenceConfig, SchemaMeta schemaMeta, String operationName,
             Object[] swaggerArguments) {
@@ -84,10 +63,6 @@ public final class InvocationFactory {
 
     /**
      * 为tcc场景提供的快捷方式,consumer端使用
-     * @param referenceConfig
-     * @param operationQualifiedName
-     * @param swaggerArguments
-     * @return
      */
     public static Invocation forConsumer(ReferenceConfig referenceConfig, String operationQualifiedName,
             Object[] swaggerArguments) {
@@ -103,10 +78,6 @@ public final class InvocationFactory {
 
     /**
      * transport server收到请求时，创建invocation
-     * @param endpoint
-     * @param operationMeta
-     * @param swaggerArguments
-     * @return
      */
     public static Invocation forProvider(Endpoint endpoint,
             OperationMeta operationMeta,

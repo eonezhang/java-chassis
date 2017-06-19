@@ -20,22 +20,11 @@ import java.util.Collection;
 
 import io.servicecomb.foundation.common.RegisterManager;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年12月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class CommonService<OPERATION> {
     protected String name;
 
     protected RegisterManager<String, OPERATION> operationMgr;
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public void createOperationMgr(String operationMgrName) {
         operationMgr = new RegisterManager<>(operationMgrName);
     }
@@ -56,18 +45,10 @@ public class CommonService<OPERATION> {
         return operationMgr.values();
     }
 
-    /**
-     * 获取name的值
-     * @return 返回 name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * 对name进行赋值
-     * @param name name的新值
-     */
     public void setName(String name) {
         this.name = name;
     }

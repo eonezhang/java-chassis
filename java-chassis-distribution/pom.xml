@@ -3,39 +3,43 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.servicecomb</groupId>
-        <artifactId>paas-cse</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <artifactId>java-chassis</artifactId>
+        <version>0.1.0-m3-SNAPSHOT</version>
     </parent>
     <artifactId>java-chassis-distribution</artifactId>
     <packaging>pom</packaging>
     <dependencies>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-common-javassist</artifactId>
+            <artifactId>common-javassist</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-common-protobuf</artifactId>
+            <artifactId>common-protobuf</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-common-rest</artifactId>
+            <artifactId>common-rest</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-core</artifactId>
+            <artifactId>java-chassis-core</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-spring-boot-starter-configuration</artifactId>
+            <artifactId>spring-boot-starter-configuration</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-spring-boot-starter-provider</artifactId>
+            <artifactId>spring-boot-starter-provider</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-spring-boot-starter-transport</artifactId>
+            <artifactId>spring-boot-starter-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.servicecomb</groupId>
+            <artifactId>spring-boot-starter-transport</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
@@ -83,81 +87,72 @@
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-handler-bizkeeper</artifactId>
+            <artifactId>handler-bizkeeper</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-handler-flowcontrol-qps</artifactId>
+            <artifactId>handler-flowcontrol-qps</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-handler-loadbalance</artifactId>
+            <artifactId>handler-loadbalance</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-provider-jaxrs</artifactId>
+            <artifactId>provider-jaxrs</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-provider-pojo</artifactId>
+            <artifactId>provider-pojo</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-provider-rest-common</artifactId>
+            <artifactId>provider-rest-common</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-provider-springmvc</artifactId>
+            <artifactId>provider-springmvc</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-serviceregistry</artifactId>
+            <artifactId>service-registry</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-transport-grpc</artifactId>
+            <artifactId>transport-highway</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-transport-highway</artifactId>
+            <artifactId>transport-rest-client</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-transport-rest-client</artifactId>
+            <artifactId>transport-rest-servlet</artifactId>
         </dependency>
         <dependency>
             <groupId>io.servicecomb</groupId>
-            <artifactId>cse-transport-rest-servlet</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.servicecomb</groupId>
-            <artifactId>cse-transport-rest-vertx</artifactId>
+            <artifactId>transport-rest-vertx</artifactId>
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <configuration>
-                                    <descriptors>
-                                        <descriptor>src/assembly/assembly.xml</descriptor>
-                                    </descriptors>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

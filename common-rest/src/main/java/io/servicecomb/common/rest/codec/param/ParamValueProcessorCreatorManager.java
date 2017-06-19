@@ -18,13 +18,6 @@ package io.servicecomb.common.rest.codec.param;
 
 import io.servicecomb.foundation.common.RegisterManager;
 
-/**
- * 管理所有parameter processor creater
- *
- * @version  [版本号, 2016年12月20日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public final class ParamValueProcessorCreatorManager extends RegisterManager<String, ParamValueProcessorCreator> {
     private static final String NAME = "param value processor mgr";
 
@@ -43,10 +36,6 @@ public final class ParamValueProcessorCreatorManager extends RegisterManager<Str
         super(NAME);
     }
 
-    /**
-     * 直接获取body parameter processor
-     * @return
-     */
     public ParamValueProcessorCreator getBodyProcessorCreater() {
         return this.ensureFindValue(BodyProcessorCreator.PARAMTYPE);
     }

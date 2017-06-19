@@ -18,14 +18,6 @@ package io.servicecomb.qps;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年2月23日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class QpsController {
     private String key;
 
@@ -41,36 +33,21 @@ public class QpsController {
     private volatile long lastRequestCount = 0;
 
     private static final int CYCLE_LENGTH = 1000;
-
-    /**
-     * <构造函数> [参数说明]
-     */
+    
     public QpsController(String key, Integer qpsLimit) {
         this.key = key;
         this.qpsLimit = qpsLimit;
         this.msCycleBegin = System.currentTimeMillis();
     }
 
-    /**
-     * 获取key的值
-     * @return 返回 key
-     */
     public String getKey() {
         return key;
     }
 
-    /**
-     * 获取qpsLimit的值
-     * @return 返回 qpsLimit
-     */
     public Integer getQpsLimit() {
         return qpsLimit;
     }
 
-    /**
-     * 对qpsLimit进行赋值
-     * @param qpsLimit qpsLimit的新值
-     */
     public void setQpsLimit(Integer qpsLimit) {
         this.qpsLimit = qpsLimit;
     }

@@ -25,14 +25,6 @@ import org.springframework.util.StringUtils;
 
 import io.servicecomb.foundation.common.config.PaaSResourceUtils;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月21日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class PaaSPropertiesLoaderUtils extends org.springframework.core.io.support.PropertiesLoaderUtils {
 
     /**
@@ -43,23 +35,13 @@ public class PaaSPropertiesLoaderUtils extends org.springframework.core.io.suppo
      *   2./a/b/abc.[ext].properties
      * @param locationPattern locationPattern
      * @return Properties
-     * @throws IOException
-     * @throws Exception Exception
+     * @throws IOException Exception
      */
     public static Properties loadMergedProperties(String locationPattern) throws IOException {
         Properties prop = new Properties();
         return fillMergedProperties(prop, locationPattern);
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param prop prop
-     * @param locationPattern locationPattern
-     * @return Properties
-     * @throws IOException
-     * @throws Exception Exception
-     */
     public static Properties fillMergedProperties(Properties prop, String locationPattern) throws IOException {
         if (StringUtils.isEmpty(locationPattern)) {
             throw new RuntimeException("Resource path must not be null or empty");
@@ -79,14 +61,6 @@ public class PaaSPropertiesLoaderUtils extends org.springframework.core.io.suppo
         return prop;
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param prop prop
-     * @param resList resList
-     * @throws IOException
-     * @throws Exception Exception
-     */
     public static void fillAllProperties(Properties prop, List<Resource> resList) throws IOException {
         for (Resource res : resList) {
             PaaSPropertiesLoaderUtils.fillProperties(prop, res);

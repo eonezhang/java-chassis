@@ -20,23 +20,19 @@ import java.util.Collections;
 
 import org.springframework.stereotype.Component;
 
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.Invocation;
 import io.servicecomb.core.transport.AbstractTransport;
 import io.servicecomb.foundation.common.net.URIEndpointObject;
 import io.servicecomb.foundation.vertx.SimpleJsonObject;
 import io.servicecomb.foundation.vertx.VertxUtils;
 import io.servicecomb.foundation.vertx.tcp.TcpConst;
-
+import io.servicecomb.swagger.invocation.AsyncResponse;
 import io.vertx.core.DeploymentOptions;
 
 @Component
 public class HighwayTransport extends AbstractTransport {
     public static final String NAME = "highway";
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getName() {
         return NAME;
@@ -53,9 +49,6 @@ public class HighwayTransport extends AbstractTransport {
         return VertxUtils.blockDeploy(transportVertx, HighwayServerVerticle.class, deployOptions);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void send(Invocation invocation, AsyncResponse asyncResp) throws Exception {
         URIEndpointObject endpoint = (URIEndpointObject) invocation.getEndpoint().getAddress();

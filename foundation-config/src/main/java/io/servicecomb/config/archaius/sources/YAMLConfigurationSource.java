@@ -35,17 +35,10 @@ import io.servicecomb.config.YAMLUtil;
 import com.netflix.config.PollResult;
 import com.netflix.config.PolledConfigurationSource;
 
-/**
- * Created by   on 2016/12/29.
- */
 public class YAMLConfigurationSource implements PolledConfigurationSource {
 
     private URL[] configUrls = new URL[0];
 
-    /**
-     * System property name to define a set of URLs to be used by the
-     * default constructor.
-     */
     private static final String CONFIG_URL = "cse.configurationSource.additionalUrls";
 
     /**
@@ -77,16 +70,6 @@ public class YAMLConfigurationSource implements PolledConfigurationSource {
         return urls;
     }
 
-    /**
-     * Create the instance for the default list of URLs, which is composed by the following order
-     * <p>
-     * <ul>
-     * <li>A configuration file (default name to be <code>io.servicecomb.config.archaius.sources.com.huawei.
-     * paas.config.properties</code>, see {@link #DEFAULT_CONFIG_FILE_NAME}) on the classpath
-     * <li>A list of URLs defined by system property {@value #CONFIG_URL} with values separated
-     *  by comma <code>","</code>.
-     * </ul>
-     */
     public YAMLConfigurationSource() {
         List<URL> urlList = new ArrayList<URL>();
         // add classpath urls

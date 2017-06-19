@@ -19,10 +19,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.servicecomb</groupId>
-		<artifactId>paas-cse</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
+		<artifactId>java-chassis</artifactId>
+		<version>0.1.0-m3-SNAPSHOT</version>
 	</parent>
-	<artifactId>cse-common-javassist</artifactId>
+	<artifactId>common-javassist</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>org.javassist</groupId>

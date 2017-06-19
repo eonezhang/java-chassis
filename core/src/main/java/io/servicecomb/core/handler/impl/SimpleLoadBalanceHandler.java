@@ -21,18 +21,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import io.servicecomb.core.AsyncResponse;
 import io.servicecomb.core.Endpoint;
 import io.servicecomb.core.Invocation;
 import io.servicecomb.core.endpoint.EndpointsCache;
 import io.servicecomb.core.exception.ExceptionUtils;
+import io.servicecomb.swagger.invocation.AsyncResponse;
 
 /**
  * 内置轮询lb，方便demo之类的场景，不必去依赖lb包
- *
- * @version  [版本号, 2017年1月20日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class SimpleLoadBalanceHandler extends AbstractHandler {
     private AtomicInteger index = new AtomicInteger();
@@ -40,9 +36,6 @@ public class SimpleLoadBalanceHandler extends AbstractHandler {
     // key为transportName
     private volatile Map<String, EndpointsCache> endpointsCacheMap = new ConcurrentHashMap<>();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
         // 调用者未指定transport时，这里得到的是""，也直接使用，不必特殊处理

@@ -24,14 +24,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年2月22日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class FixedThreadExecutor implements Executor {
     private List<Executor> executorList = new ArrayList<>();
 
@@ -39,17 +31,11 @@ public class FixedThreadExecutor implements Executor {
 
     private Map<Long, Executor> threadExectorMap = new ConcurrentHashMap<>();
 
-    /**
-     * <构造函数> [参数说明]
-     */
     public FixedThreadExecutor() {
         executorList.add(Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()));
         executorList.add(Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void execute(Runnable command) {
         long threadId = Thread.currentThread().getId();

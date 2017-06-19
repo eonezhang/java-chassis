@@ -23,13 +23,8 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import io.servicecomb.common.rest.codec.RestClientRequest;
 import io.servicecomb.common.rest.codec.RestServerRequest;
 
-/**
- * 用于处理Jaxrs中的Form类型参数
- *
- * @version  [版本号, 2017年1月2日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
+import io.swagger.models.parameters.Parameter;
+
 public class FormProcessorCreator implements ParamValueProcessorCreator {
     public static final String PARAMTYPE = "formData";
 
@@ -38,9 +33,6 @@ public class FormProcessorCreator implements ParamValueProcessorCreator {
             super(paramPath, targetType);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Object getValue(RestServerRequest request) throws Exception {
             Object param = request.getFormParam(paramPath);
@@ -51,9 +43,6 @@ public class FormProcessorCreator implements ParamValueProcessorCreator {
             return convertValue(param, targetType);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void setValue(RestClientRequest clientRequest, Object arg) throws Exception {
             clientRequest.addForm(paramPath, arg);
@@ -69,12 +58,9 @@ public class FormProcessorCreator implements ParamValueProcessorCreator {
         ParamValueProcessorCreatorManager.INSTANCE.register(PARAMTYPE, this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public ParamValueProcessor create(String paramValue, Type genericParamType) {
+    public ParamValueProcessor create(Parameter parameter, Type genericParamType) {
         JavaType targetType = TypeFactory.defaultInstance().constructType(genericParamType);
-        return new FormProcessor(paramValue, targetType);
+        return new FormProcessor(parameter.getName(), targetType);
     }
 }

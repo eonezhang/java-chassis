@@ -26,14 +26,6 @@ import io.servicecomb.core.provider.CseBeanPostProcessor.ProviderProcessor;
 import io.servicecomb.foundation.common.RegisterManager;
 import io.servicecomb.foundation.common.utils.BeanUtils;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年4月28日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 @Component
 public class PojoProducers implements ProviderProcessor {
     // key为schemaId
@@ -47,17 +39,16 @@ public class PojoProducers implements ProviderProcessor {
         return pojoMgr.values();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void processProvider(ApplicationContext applicationContext, String beanName, Object bean) {
-        RpcSchema rpcSchema = bean.getClass().getAnnotation(RpcSchema.class);
+        // aop后，新的实例的父类可能是原class，也可能只是个proxy，父类不是原class
+        // 所以，需要先取出原class，再取标注
+        Class<?> beanCls = BeanUtils.getImplClassFromBean(bean);
+        RpcSchema rpcSchema = beanCls.getAnnotation(RpcSchema.class);
         if (rpcSchema == null) {
             return;
         }
 
-        Class<?> beanCls = BeanUtils.getImplClassFromBean(bean);
         String schemaId = rpcSchema.schemaId();
         if (StringUtils.isEmpty(schemaId)) {
             Class<?>[] intfs = beanCls.getInterfaces();

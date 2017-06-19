@@ -27,23 +27,14 @@ import org.springframework.context.ApplicationContext;
 import io.servicecomb.common.rest.locator.ServicePathManager;
 import io.servicecomb.core.definition.MicroserviceMeta;
 import io.servicecomb.core.definition.SchemaMeta;
-import io.servicecomb.swagger.generator.core.DefaultSwaggerGeneratorContext;
-import io.servicecomb.swagger.generator.core.SwaggerGenerator;
 import io.servicecomb.foundation.common.utils.BeanUtils;
-
+import io.servicecomb.swagger.generator.core.SwaggerGenerator;
+import io.servicecomb.swagger.generator.core.SwaggerGeneratorContext;
+import io.servicecomb.swagger.generator.pojo.PojoSwaggerGeneratorContext;
 import io.swagger.models.Swagger;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- *
- * @version  [版本号, 2017年4月10日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class TestRestEngineSchemaListener {
-    DefaultSwaggerGeneratorContext context = new DefaultSwaggerGeneratorContext();
+    SwaggerGeneratorContext context = new PojoSwaggerGeneratorContext();
 
     static class Impl {
         public int add(int x, int y) {

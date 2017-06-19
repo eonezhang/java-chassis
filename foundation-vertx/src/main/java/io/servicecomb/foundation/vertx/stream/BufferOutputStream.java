@@ -34,9 +34,6 @@ public class BufferOutputStream extends OutputStream {
 
     private boolean needReleaseBuffer;
 
-    /**
-     * 构造函数
-     */
     public BufferOutputStream() {
         // TODO:默认大小加配置项
         // TODO:如何与pool配合起来，vertx中默认都是unpool的，我们的阻塞模式下，申请与释放也不在一个线程，估计更用不上？
@@ -54,10 +51,6 @@ public class BufferOutputStream extends OutputStream {
         needReleaseBuffer = false;
     }
 
-    /**
-     * 构造函数
-     * @param buffer  buffer
-     */
 
     public BufferOutputStream(ByteBuf buffer) {
         this.byteBuf = buffer;
@@ -71,18 +64,10 @@ public class BufferOutputStream extends OutputStream {
         return Buffer.buffer(byteBuf);
     }
 
-    /**
-     * buffer readable length
-     * @return       len
-     */
     public int length() {
         return byteBuf.readableBytes();
     }
 
-    /**
-     * writeByte
-     * @param value   value
-     */
     public void writeByte(byte value) {
         byteBuf.writeByte(value);
     }
@@ -93,60 +78,31 @@ public class BufferOutputStream extends OutputStream {
         byteBuf.writeByte((byte) byteValue);
     }
 
-    /**
-     * write
-     * @param value   value
-     */
     public void write(boolean value) {
         byteBuf.writeBoolean(value);
     }
 
-    /**
-     * writeInt
-     * @param pos     pos
-     * @param value   value
-     */
     public void writeInt(int pos, int value) {
         byteBuf.setInt(pos, value);
     }
 
-    /**
-     * writeShort
-     * @param value      value
-     */
     public void writeShort(short value) {
         byteBuf.writeShort(value);
     }
 
-    /**
-     * writeInt
-     * @param value      value
-     */
     public void writeInt(int value) {
         byteBuf.writeInt(value);
     }
 
-    /**
-     * writeLong
-     * @param value      value
-     */
     public void writeLong(long value) {
         byteBuf.writeLong(value);
     }
 
-    /**
-     * writeString
-     * @param value      value
-     */
     public void writeString(String value) {
         byteBuf.writeInt(value.length());
         byteBuf.writeCharSequence(value, StandardCharsets.UTF_8);
     }
 
-    /**
-     * write
-     * @param b   bytes
-     */
     public void write(byte[] b) {
         write(b, 0, b.length);
     }
@@ -163,11 +119,6 @@ public class BufferOutputStream extends OutputStream {
         }
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @return
-     */
     public int writerIndex() {
         return byteBuf.writerIndex();
     }

@@ -24,10 +24,6 @@ import io.servicecomb.core.provider.consumer.ReferenceConfig;
 
 /**
  * 封装每一次调用的元数据
- *
- * @version  [版本号, 2017年1月6日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
  */
 public class RequestMeta {
     private ReferenceConfig referenceConfig;
@@ -38,12 +34,6 @@ public class RequestMeta {
 
     private Map<String, String> pathParams;
 
-    /**
-     * <构造函数>
-     * @param referenceConfig
-     * @param swaggerRestOperation
-     * @param pathParams [参数说明]
-     */
     public RequestMeta(ReferenceConfig referenceConfig, RestOperationMeta swaggerRestOperation,
             Map<String, String> pathParams) {
         this.referenceConfig = referenceConfig;
@@ -52,34 +42,18 @@ public class RequestMeta {
         this.pathParams = pathParams;
     }
 
-    /**
-     * 获取referenceConfig的值
-     * @return 返回 referenceConfig
-     */
     public ReferenceConfig getReferenceConfig() {
         return referenceConfig;
     }
 
-    /**
-     * 获取pathParams的值
-     * @return 返回 pathParams
-     */
     public Map<String, String> getPathParams() {
         return pathParams;
     }
 
-    /**
-     * 获取swaggerRestOperation的值
-     * @return 返回 swaggerRestOperation
-     */
     public RestOperationMeta getSwaggerRestOperation() {
         return swaggerRestOperation;
     }
 
-    /**
-     * 获取operationMeta的值
-     * @return 返回 operationMeta
-     */
     public OperationMeta getOperationMeta() {
         return operationMeta;
     }

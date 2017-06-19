@@ -23,29 +23,13 @@ import java.util.Map;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
-/**
- * 根据id合并
- *
- * @version  [版本号, 2016年11月21日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class IdXmlLoader extends XmlLoader {
     private Map<String, Element> idMap = new HashMap<>();
 
-    /**
-     * <构造函数>
-     * @param locationPatternList List<String>
-     */
     public IdXmlLoader(List<String> locationPatternList) {
         super(locationPatternList);
     }
 
-    /**
-     * <构造函数>
-     * @param locationPatternList locationPatternList
-     * @param suffix suffix
-     */
     public IdXmlLoader(List<String> locationPatternList, String suffix) {
         super(locationPatternList, suffix);
     }

@@ -17,43 +17,31 @@ package io.servicecomb.transport.highway;
 
 import javax.ws.rs.core.Response.Status;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.protostuff.runtime.ProtobufFeature;
+import io.servicecomb.foundation.vertx.server.TcpBufferHandler;
+import io.servicecomb.foundation.vertx.server.TcpParser;
+import io.servicecomb.foundation.vertx.server.TcpServerConnection;
 import io.servicecomb.transport.highway.message.LoginRequest;
 import io.servicecomb.transport.highway.message.LoginResponse;
 import io.servicecomb.transport.highway.message.RequestHeader;
 import io.servicecomb.transport.highway.message.ResponseHeader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import io.servicecomb.foundation.vertx.server.TcpBufferHandler;
-import io.servicecomb.foundation.vertx.server.TcpParser;
-import io.servicecomb.foundation.vertx.server.TcpServerConnection;
-
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.net.NetSocket;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年5月8日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class HighwayServerConnection extends TcpServerConnection implements TcpBufferHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(HighwayServerConnection.class);
 
-    /**
-     * {@inheritDoc}
-     */
+    private ProtobufFeature protobufFeature = new ProtobufFeature();
+
     @Override
     public void init(NetSocket netSocket) {
         splitter = new TcpParser(this);
         super.init(netSocket);
     }
 
-    /**
-    * {@inheritDoc}
-    */
     @Override
     public void handle(long msgId, Buffer headerBuffer, Buffer bodyBuffer) {
         RequestHeader requestHeader = decodeRequestHeader(msgId, headerBuffer);
@@ -77,7 +65,7 @@ public class HighwayServerConnection extends TcpServerConnection implements TcpB
     protected RequestHeader decodeRequestHeader(long msgId, Buffer headerBuffer) {
         RequestHeader requestHeader = null;
         try {
-            requestHeader = HighwayCodec.readRequestHeader(headerBuffer);
+            requestHeader = HighwayCodec.readRequestHeader(headerBuffer, protobufFeature);
         } catch (Exception e) {
             String msg = String.format("decode request header error, msgId=%d",
                     msgId);
@@ -105,13 +93,16 @@ public class HighwayServerConnection extends TcpServerConnection implements TcpB
         if (request != null) {
             this.setProtocol(request.getProtocol());
             this.setZipName(request.getZipName());
+            this.protobufFeature.setUseProtobufMapCodec(request.isUseProtobufMapCodec());
         }
 
-        try (HighwayOutputStream os = new HighwayOutputStream(msgId)) {
+        try (HighwayOutputStream os = new HighwayOutputStream(msgId, protobufFeature)) {
             ResponseHeader responseHeader = new ResponseHeader();
             responseHeader.setStatusCode(Status.OK.getStatusCode());
 
             LoginResponse response = new LoginResponse();
+            response.setUseProtobufMapCodec(protobufFeature.isUseProtobufMapCodec());
+
             os.write(ResponseHeader.getResponseHeaderSchema(),
                     responseHeader,
                     LoginResponse.getLoginResponseSchema(),
@@ -123,7 +114,7 @@ public class HighwayServerConnection extends TcpServerConnection implements TcpB
     }
 
     protected void onRequest(long msgId, RequestHeader header, Buffer bodyBuffer) {
-        HighwayServerInvoke invoke = new HighwayServerInvoke();
+        HighwayServerInvoke invoke = new HighwayServerInvoke(protobufFeature);
         if (invoke.init(netSocket, msgId, header, bodyBuffer)) {
             invoke.execute();
         }

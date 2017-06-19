@@ -29,6 +29,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
 
+import io.netty.handler.codec.http.QueryStringDecoder;
 import io.servicecomb.common.rest.RestConst;
 import io.servicecomb.common.rest.codec.LocalRestServerRequest;
 import io.servicecomb.common.rest.codec.RestServerRequest;
@@ -38,23 +39,14 @@ import io.servicecomb.common.rest.locator.OperationLocator;
 import io.servicecomb.common.rest.locator.ServicePathManager;
 import io.servicecomb.core.CseContext;
 import io.servicecomb.core.Invocation;
-import io.servicecomb.core.Response;
 import io.servicecomb.core.definition.MicroserviceMeta;
-import io.servicecomb.core.exception.ExceptionFactory;
 import io.servicecomb.core.invocation.InvocationFactory;
 import io.servicecomb.core.provider.consumer.InvokerUtils;
 import io.servicecomb.core.provider.consumer.ReferenceConfig;
+import io.servicecomb.swagger.invocation.Response;
+import io.servicecomb.swagger.invocation.context.InvocationContext;
+import io.servicecomb.swagger.invocation.exception.ExceptionFactory;
 
-import io.netty.handler.codec.http.QueryStringDecoder;
-
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2017年1月14日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class CseClientHttpRequest extends OutputStream implements ClientHttpRequest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CseClientHttpRequest.class);
@@ -65,19 +57,24 @@ public class CseClientHttpRequest extends OutputStream implements ClientHttpRequ
 
     private HttpHeaders httpHeaders = new HttpHeaders();
 
+    private InvocationContext context;
+
     private Object requestBody;
 
     public CseClientHttpRequest() {
     }
 
-    /**
-     * <构造函数>
-     * @param params
-     * @param body [参数说明]
-     */
     public CseClientHttpRequest(URI uri, HttpMethod method) {
         this.uri = uri;
         this.method = method;
+    }
+
+    public InvocationContext getContext() {
+        return context;
+    }
+
+    public void setContext(InvocationContext context) {
+        this.context = context;
     }
 
     /**
@@ -88,49 +85,30 @@ public class CseClientHttpRequest extends OutputStream implements ClientHttpRequ
         throw new Error("not support");
     }
 
-    /**
-     * 对requestBody进行赋值
-     * @param requestBody requestBody的新值
-     */
     public void setRequestBody(Object requestBody) {
         this.requestBody = requestBody;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public HttpMethod getMethod() {
         return method;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public URI getURI() {
         return uri;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public HttpHeaders getHeaders() {
         return httpHeaders;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public OutputStream getBody() throws IOException {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public ClientHttpResponse execute() throws IOException {
         RequestMeta requestMeta = createRequestMeta(method.name(), uri);
@@ -147,10 +125,6 @@ public class CseClientHttpRequest extends OutputStream implements ClientHttpRequ
     /**
      * 处理调用URL
      * URL格式：cse://microserviceName/业务url
-     * <功能详细描述>
-     * @param httpMetod
-     * @param url
-     * @return
      */
     private RequestMeta createRequestMeta(String httpMetod, URI uri) {
         String microserviceName = uri.getAuthority();
@@ -172,14 +146,6 @@ public class CseClientHttpRequest extends OutputStream implements ClientHttpRequ
         return new RequestMeta(referenceConfig, swaggerRestOperation, pathParams);
     }
 
-    /**
-     * <一句话功能简述>
-     * <功能详细描述>
-     * @param args
-     * @param variables
-     * @return
-     * @throws Throwable
-     */
     private CseClientHttpResponse invoke(RequestMeta requestMeta, Object[] args) {
         Invocation invocation =
             InvocationFactory.forConsumer(requestMeta.getReferenceConfig(),
@@ -187,7 +153,12 @@ public class CseClientHttpRequest extends OutputStream implements ClientHttpRequ
                     args);
         invocation.getHandlerContext().put(RestConst.REST_CLIENT_REQUEST_PATH,
                 this.uri.getPath() + "?" + this.uri.getQuery());
-        Response response = InvokerUtils.innerSyncInvoke(invocation);
+
+        if (context != null) {
+            invocation.addContext(context);
+        }
+
+        Response response = doInvoke(invocation);
 
         if (response.isSuccessed()) {
             return new CseClientHttpResponse(response);
@@ -196,11 +167,10 @@ public class CseClientHttpRequest extends OutputStream implements ClientHttpRequ
         throw ExceptionFactory.convertConsumerException((Throwable) response.getResult());
     }
 
-    /**
-     * 从输入中获取args
-     * @return
-     * @throws Exception
-     */
+    protected Response doInvoke(Invocation invocation) {
+        return InvokerUtils.innerSyncInvoke(invocation);
+    }
+
     private Object[] collectArguments(RequestMeta requestMeta, Map<String, List<String>> queryParams) {
         RestServerRequest mockRequest =
             new LocalRestServerRequest(requestMeta.getPathParams(), queryParams, httpHeaders, requestBody);

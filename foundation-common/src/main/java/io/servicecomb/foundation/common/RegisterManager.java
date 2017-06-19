@@ -23,14 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * <一句话功能简述>
- * <功能详细描述>
- *
- * @version  [版本号, 2016年11月29日]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
- */
 public class RegisterManager<KEY, VALUE> {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegisterManager.class);
 
@@ -46,26 +38,14 @@ public class RegisterManager<KEY, VALUE> {
         this.name = name;
     }
 
-    /**
-     * 获取name的值
-     * @return 返回 name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * 获取registerErrorFmt的值
-     * @return 返回 registerErrorFmt
-     */
     public String getRegisterErrorFmt() {
         return registerErrorFmt;
     }
 
-    /**
-     * 对registerErrorFmt进行赋值
-     * @param registerErrorFmt registerErrorFmt的新值
-     */
     public void setRegisterErrorFmt(String registerErrorFmt) {
         this.registerErrorFmt = registerErrorFmt;
     }
